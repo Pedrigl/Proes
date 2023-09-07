@@ -1,0 +1,7 @@
+C:\Users\Pedro\Desktop\Proes\ProesBack\obj\Debug\net7.0\ProesBack.csproj.AssemblyReference.cache
+C:\Users\Pedro\Desktop\Proes\ProesBack\obj\Debug\net7.0\ProesBack.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pedro\Desktop\Proes\ProesBack\obj\Debug\net7.0\ProesBack.AssemblyInfoInputs.cache
+C:\Users\Pedro\Desktop\Proes\ProesBack\obj\Debug\net7.0\ProesBack.AssemblyInfo.cs
+C:\Users\Pedro\Desktop\Proes\ProesBack\obj\Debug\net7.0\ProesBack.csproj.CoreCompileInputs.cache
+C:\Users\Pedro\Desktop\Proes\ProesBack\obj\Debug\net7.0\ProesBack.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Pedro\Desktop\Proes\ProesBack\obj\Debug\net7.0\ProesBack.MvcApplicationPartsAssemblyInfo.cache
