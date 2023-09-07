@@ -1,9 +1,9 @@
 {
-  "name": "proes",
+  "name": "proes-front",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host=127.0.0.1",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -20,7 +20,8 @@
     "@angular/router": "^16.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.13.0"
+    "zone.js": "~0.13.0",
+    "jest-editor-support": "*"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.1.8",
