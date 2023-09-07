@@ -1,0 +1,20 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+*.lock
+*.vsidx
+*.suo
+/ProesBack/obj/Debug/net7.0/.NETCoreApp,Version=v7.0.AssemblyAttributes.cs
+/ProesBack/obj/Debug/net7.0/ProesBack.AssemblyInfo.cs
+/ProesBack/obj/Debug/net7.0/ProesBack.AssemblyInfoInputs.cache
+/ProesBack/obj/Debug/net7.0/ProesBack.assets.cache
+/ProesBack/obj/Debug/net7.0/ProesBack.csproj.AssemblyReference.cache
+/ProesBack/obj/Debug/net7.0/ProesBack.GeneratedMSBuildEditorConfig.editorconfig
+/ProesBack/obj/Debug/net7.0/ProesBack.GlobalUsings.g.cs
+/ProesBack/obj/ProesBack.csproj.nuget.dgspec.json
+/ProesBack/obj/ProesBack.csproj.nuget.g.props
+/ProesBack/obj/ProesBack.csproj.nuget.g.targets
+/ProesBack/obj/project.assets.json
+/ProesBack/obj/project.nuget.cache
+*.gitkeep
