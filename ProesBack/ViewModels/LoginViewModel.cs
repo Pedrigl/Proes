@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProesBack.ViewModels
 {
-    public class LoginViewModel
+    public class LoginViewModel : IdentityUser
     {
         [Key]
         [Required(ErrorMessage = "O campo ID é obrigatório")]

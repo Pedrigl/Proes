@@ -1,6 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using ProesBack.Infrastructure.Data.Common;
 using ProesBack.Infrastructure.ExtensionMethods;
+using System.Text;
 
 namespace ProesBack
 {
@@ -15,7 +19,29 @@ namespace ProesBack
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllers();
+
+            var key = Encoding.ASCII.GetBytes(Settings.GetKey());
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new()
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience=false
+                };
+            });
+
             services.AddRepositories().AddServices();
 
             services.AddAutoMapper(typeof(Startup));
@@ -29,8 +55,7 @@ namespace ProesBack
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            app.UseRouting();
+        {            
             if (env.IsDevelopment())
             {
                 app.UseSwagger();
@@ -38,7 +63,9 @@ namespace ProesBack
 
             }
             app.UseHttpsRedirection();
+            app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

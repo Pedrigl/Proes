@@ -29,7 +29,7 @@ namespace ProesBack.Services
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
                 
-
+                var key = Encoding.ASCII.GetBytes(Settings.GetKey());
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
@@ -37,7 +37,7 @@ namespace ProesBack.Services
                         new Claim(ClaimTypes.Name, credentials.Username.ToString())
                     }),
                     Expires = DateTime.UtcNow.AddHours(3),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Settings.GetKey()),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                                            SecurityAlgorithms.HmacSha256Signature)
                 };
 
