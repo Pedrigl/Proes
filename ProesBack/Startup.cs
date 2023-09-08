@@ -15,6 +15,7 @@ namespace ProesBack
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
             services.AddRepositories().AddServices();
 
             services.AddAutoMapper(typeof(Startup));
@@ -22,24 +23,28 @@ namespace ProesBack
             services.AddDbContext<ProesContext>(c =>
                 c.UseInMemoryDatabase("Proes"));
 
-            services.AddControllersWithViews();
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
+            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.Map("/api", api =>
-            {
-                api.UseRouting();
-                api.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-            });
-            
-            app.UseStaticFiles();
-
             app.UseRouting();
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+
+            }
+            app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

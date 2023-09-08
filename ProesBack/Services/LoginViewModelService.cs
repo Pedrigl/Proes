@@ -1,7 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 using ProesBack.Domain.Entities;
 using ProesBack.Domain.Interfaces;
+using ProesBack.Infrastructure.Data.Common;
 using ProesBack.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace ProesBack.Services
 {
@@ -16,12 +21,37 @@ namespace ProesBack.Services
             _mapper = mapper;
         }
 
-        public void Login(string username, string password)
+        public string GenerateToken(Login login)
         {
-            _loginRepository.Login(username, password);
+            var credentials = _loginRepository.Login(login.Username, login.Password);
             //fazer autenticação
-        }
+            if (credentials != null)
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                
 
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim(ClaimTypes.Name, credentials.Username.ToString())
+                    }),
+                    Expires = DateTime.UtcNow.AddHours(3),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Settings.GetKey()),
+                                           SecurityAlgorithms.HmacSha256Signature)
+                };
+
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                return tokenHandler.WriteToken(token);
+            }
+
+            return null;
+        }
+        
+        public Login Get(string username, string password)
+        {
+            return _loginRepository.Login(username, password);
+        }
         public void Insert(Login login)
         {
             _loginRepository.Insert(login);
