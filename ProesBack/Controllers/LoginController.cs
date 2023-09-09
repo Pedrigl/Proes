@@ -30,6 +30,7 @@ namespace ProesBack.Controllers
                 if (token == null)
                     return BadRequest("Username or password is incorrect");
 
+                user.Password = "";
                 return new
                 {
                     user = user,
