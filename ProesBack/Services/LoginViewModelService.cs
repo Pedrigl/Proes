@@ -48,23 +48,27 @@ namespace ProesBack.Services
             return null;
         }
         
-        public Login Get(string username, string password)
+        public Login GetLogin(int id)
+        {
+            return _loginRepository.Get(id);
+        }
+        public Login GetLogin(string username, string password)
         {
             return _loginRepository.Login(username, password);
         }
-        public void Insert(Login login)
+        public void InsertLogin(Login login)
         {
             _loginRepository.Insert(login);
             _loginRepository.Save();
         }
 
-        public void Update(Login login)
+        public void UpdateLogin(Login login)
         {
             _loginRepository.Update(login);
             _loginRepository.Save();
         }
 
-        public void Delete(int id)
+        public void DeleteLogin(int id)
         {
             _loginRepository.Delete(id);
             _loginRepository.Save();

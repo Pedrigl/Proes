@@ -1,0 +1,56 @@
+<div class="container">
+  <h1 *ngIf="!registerMode">Login</h1>
+  <h1 *ngIf="registerMode">Register</h1>
+  <hr>
+
+  <div class="justify-content-center align-items-center" *ngIf="!registerMode">
+    <form (ngSubmit)="loginSubmit()">
+      <div class="form-outline mb-4">
+        <label class="form-label">Email</label>
+        <input type="email" [(ngModel)]="login.username" name="email" class="form-control" />
+      </div>
+
+      <div class="form-outline mb-4">
+        <label class="form-label">Password</label>
+        <input type="password" [(ngModel)]="login.password" name="password" class="form-control" />
+      </div>
+      <alert type="danger" *ngIf="loginError">Email ou Senha incorretos</alert>
+      <div class="row mb-4">
+        <div class="col">
+          <!-- Simple link -->
+          <a href="#!">Forgot password?</a>
+        </div>
+      </div>
+      <p>Not a member?</p>
+
+      <div class="form-check form-switch mb-4">
+        <input class="form-check-input" type="checkbox" id="toggleSwitch" name="registerToggle" (change)="registerModeToggle()">
+        <label class="form-check-label" for="toggleSwitch">Register Mode</label>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+    </form>
+  </div>
+
+  <div class="justify-content-center align-items-center" *ngIf="registerMode">
+    <form (ngSubmit)="registerSubmit()">
+      <div class="form-outline mb-4">
+        <label class="form-label">Username</label>
+        <input type="email" [(ngModel)]="login.username" name="username" class="form-control" />
+      </div>
+
+      <div class="form-outline mb-4">
+        <label class="form-label">Password</label>
+        <input type="password" [(ngModel)]="login.password" name="password" class="form-control" />
+      </div>
+      <p>Already have an account?</p>
+
+      <div class="form-check form-switch mb-4">
+        <input class="form-check-input" type="checkbox" id="toggleSwitch" name="registerToggle" (change)="registerModeToggle()">
+        <label class="form-check-label" for="toggleSwitch">Sign in Mode</label>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
+    </form>
+  </div>
+</div>

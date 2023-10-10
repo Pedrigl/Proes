@@ -43,3 +43,4 @@
 *.v2
 /ProesBack/.vs/ProjectEvaluation/proes.metadata.v7.bin
 /ProesBack/.vs/ProjectEvaluation/proes.projects.v7.bin
+*.wsuo
