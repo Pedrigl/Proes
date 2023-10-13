@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProesBack.Domain.Entities;
 using ProesBack.Interfaces;
 
@@ -6,6 +7,7 @@ namespace ProesBack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly ILoginViewModelService _loginViewModelService;
