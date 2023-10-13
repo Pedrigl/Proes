@@ -20,7 +20,7 @@ namespace ProesBack.Controllers
         {
             try
             {
-                var user = _loginViewModelService.Get(username, password);
+                var user = _loginViewModelService.GetLogin(username, password);
                 var token = _loginViewModelService.GenerateToken(new Domain.Entities.Login
                 {
                     Username = username,
@@ -51,10 +51,10 @@ namespace ProesBack.Controllers
             {
                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                     return BadRequest("Username or password is empty");
-                var user = _loginViewModelService.Get(username, password);
+                var user = _loginViewModelService.GetLogin(username, password);
                 if(user == null)
                 {
-                    _loginViewModelService.Insert(new Domain.Entities.Login
+                    _loginViewModelService.InsertLogin(new Domain.Entities.Login
                     {
                         Username = username,
                         Password = password

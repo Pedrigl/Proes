@@ -9,18 +9,20 @@ namespace ProesBack.Controllers
     public class UserController : ControllerBase
     {
         private readonly ILoginViewModelService _loginViewModelService;
+        private readonly IUserViewModelService _userViewModelService;
 
-        public UserController(ILoginViewModelService loginViewModelService)
+        public UserController(ILoginViewModelService loginViewModelService, IUserViewModelService userViewModelService)
         {
             _loginViewModelService = loginViewModelService;
+            _userViewModelService = userViewModelService;
         }
 
-        [HttpGet("Get/{loginId}")]
+        [HttpGet("Get")]
         public async Task<ActionResult<dynamic>> Get(int loginId)
         {
             try
             {
-                var user = _loginViewModelService.Get(loginId);
+                var user = _loginViewModelService.GetLogin(loginId);
                 return user;
             }
             catch (Exception ex)
@@ -41,7 +43,7 @@ namespace ProesBack.Controllers
                 if (Get(user.loginId).Result == null)
                     return BadRequest("User already exists");
 
-                _loginViewModelService.Insert(user);
+                _userViewModelService.InsertUser(user);
                 return Ok();
             }
             catch (Exception ex)
@@ -61,7 +63,7 @@ namespace ProesBack.Controllers
                 if (Get(user.loginId) == null)
                     return BadRequest("User not found");
 
-                _loginViewModelService.Update(user);
+                _userViewModelService.UpdateUser(user);
                 return Ok();
             }
             catch (Exception ex)
@@ -70,7 +72,7 @@ namespace ProesBack.Controllers
             }
         }
 
-        [HttpDelete("Delete/{loginId}")]
+        [HttpDelete("Delete")]
         public IActionResult Delete(int loginId)
         {
             try
@@ -78,7 +80,7 @@ namespace ProesBack.Controllers
                 if (Get(loginId) == null)
                     return BadRequest("User not found");
 
-                _loginViewModelService.Delete(loginId);
+                _loginViewModelService.DeleteLogin(loginId);
                 return Ok();
             }
             catch (Exception ex)
