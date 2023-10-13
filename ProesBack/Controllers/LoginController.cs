@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProesBack.Domain.Entities;
 using ProesBack.Interfaces;
 
 
@@ -16,16 +17,12 @@ namespace ProesBack.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<dynamic>> Login(string username, string password)
+        public async Task<ActionResult<dynamic>> Login(Login login)
         {
             try
             {
-                var user = _loginViewModelService.GetLogin(username, password);
-                var token = _loginViewModelService.GenerateToken(new Domain.Entities.Login
-                {
-                    Username = username,
-                    Password = password
-                });
+                var user = _loginViewModelService.GetLogin(login.Username, login.Password) ;
+                var token = _loginViewModelService.GenerateToken(user);
 
                 if (token == null)
                     return BadRequest("Username or password is incorrect");
