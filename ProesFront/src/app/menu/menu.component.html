@@ -1,4 +1,4 @@
-<nav *ngIf="'MenuComponent.isLoggedIn'" class="navbar navbar-expand-lg navbar-dark bg-dark rounded">
+<nav *ngIf="isHidden" class="navbar navbar-expand-lg navbar-dark bg-dark rounded">
   <!-- Container wrapper -->
   <div class="container-fluid">
     <!-- Toggle button -->
@@ -21,7 +21,7 @@
       <!-- Left links -->
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <a class="nav-link" href="login">Login</a>
-          <a class="nav-link" href="login">Register</a>        
+          <a class="nav-link" href="login">Register</a>
       </ul>
       <!-- Left links -->
     </div>

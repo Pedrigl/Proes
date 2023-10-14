@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {AuthGuard} from '../shared/services/auth-guard/auth.guard'; 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit{
   isCollapsed: boolean = false;
-  constructor() { }
+  isHidden: boolean = false;
+  constructor(private authGuard : AuthGuard) { }
 
   ngOnInit(): void {
-
+    this.isHidden = this.authGuard.isAuthenticated;
   }
+
+  private 
 }

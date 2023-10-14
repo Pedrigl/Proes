@@ -25,7 +25,8 @@ namespace ProesBack.ViewModels
         [Required(ErrorMessage = "O campo BirthDate é obrigatório")]
         public DateTime BirthDate { get; set; }
 
-        public byte[] UserPassword { get; set; }
+        [Display(Name = "FotoDePerfil")]
+        public string UserPicture { get; set; }
 
 
 
