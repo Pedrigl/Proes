@@ -16,7 +16,6 @@ export class LoginRepositoryService {
   userModel!: Login
 
   public login = (login: Login) => {
-    console.log(this.envUrl.urlAddress + "/api/Login/Login");
     return this.http.post<LoginResponse>(this.envUrl.urlAddress + "/api/Login/Login", login);
   }
 

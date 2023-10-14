@@ -3,13 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Login, LoginResponse } from '../../Interfaces/login.model';
 import { LoginRepositoryService } from '../../shared/services/login-repository.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {Router} from '@angular/router'; 
+import { Router } from '@angular/router';
+import {MenuComponent} from '../../menu/menu.component'; 
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css']
 })
-export class LoginPageComponent{
+export class LoginPageComponent implements OnInit{
   constructor(private router:Router, private loginRepository: LoginRepositoryService) {
   }
   loginError: boolean = false;
@@ -26,7 +28,6 @@ export class LoginPageComponent{
 
   public registerModeToggle() {
     this.registerMode = !this.registerMode;
-    console.log(this.registerMode)
   }
 
   public loginSubmit() {
@@ -41,7 +42,6 @@ export class LoginPageComponent{
   public registerSubmit(){
     this.loginRepository.register(this.login)
       .subscribe(res => {
-        console.log(res);
         this.login.username = res.username;
         this.login.password = res.password;
         this.loginSubmit();
@@ -51,6 +51,10 @@ export class LoginPageComponent{
           this.registerError = true;
           console.log(error)
         });
+  }
+
+  ngOnInit(): void {
+      localStorage.removeItem('token');
   }
 
 }
