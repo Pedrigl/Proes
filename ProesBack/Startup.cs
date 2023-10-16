@@ -55,8 +55,8 @@ namespace ProesBack
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddDbContext<ProesContext>(c =>
-                c.UseInMemoryDatabase("Proes"));
+            services.AddDbContext<ProesContext>( options =>
+            options.UseSqlServer(Configuration.GetConnectionString("ProesCloud")));
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();

@@ -9,6 +9,8 @@ namespace ProesBack.Infrastructure.Data.EntityConfig
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.ToTable("User");
+
             builder.HasKey(x => x.Id);
             
             builder.Property(x => x.Id).ValueGeneratedOnAdd();

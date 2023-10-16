@@ -9,7 +9,7 @@ namespace ProesBack.Infrastructure.Data.Common
         public ProesContext(DbContextOptions<ProesContext> options)
             : base(options) 
         {
-        
+           
         }        
 
         public DbSet<Login> Logins { get; set; }

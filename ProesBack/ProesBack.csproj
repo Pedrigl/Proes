@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Infrastructure\Data\Migrations\" />
     <Folder Include="Resources\Images\" />
   </ItemGroup>
 

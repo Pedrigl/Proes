@@ -95,6 +95,8 @@ namespace ProesBack.Services.Tests
         public async void ShouldDownloadProfilePictureFromDropbox() 
         {
             _dropBox.GetFileFromDropBox("/ProfilePictures/Pedro.jpg");
+            var link = await _dropBox.GetFileLinkFromDropBox("/ProfilePictures/Pedro.jpg");
+            link.Should().NotBeNullOrEmpty();
         }
         
     }

@@ -8,6 +8,8 @@ namespace ProesBack.Infrastructure.Data.EntityConfig
     {
         public void Configure(EntityTypeBuilder<Login> builder)
         {
+            builder.ToTable("Login");
+
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).ValueGeneratedOnAdd();

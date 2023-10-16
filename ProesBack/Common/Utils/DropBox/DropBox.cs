@@ -44,5 +44,12 @@ namespace ProesBack.Common.Utils.DropBox
             
         }
 
+        public async Task<string> GetFileLinkFromDropBox(string filePath)
+        {
+            var link = await _dropboxClient.Sharing.CreateSharedLinkWithSettingsAsync(filePath);
+
+            return link.Url;
+        }
+
     }
 }
