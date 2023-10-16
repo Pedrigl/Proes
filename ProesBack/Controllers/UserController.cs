@@ -20,17 +20,16 @@ namespace ProesBack.Controllers
         }
 
         [HttpGet("Get")]
-        public async Task<ActionResult<dynamic>> Get(int loginId)
+        public async Task<ActionResult<dynamic>> Get(int userId)
         {
             try
             {
-                var user = _loginViewModelService.GetLogin(loginId);
+                var user = _userViewModelService.GetUser(userId);
                 return user;
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
-                throw;
             }
         }
 
@@ -83,6 +82,25 @@ namespace ProesBack.Controllers
                     return BadRequest("User not found");
 
                 _loginViewModelService.DeleteLogin(loginId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost("SendPicture")]
+        public IActionResult SendPicture(IFormFile file)
+        {
+            try
+            {
+                if (file == null)
+                    return BadRequest("File is empty");
+
+                var user = _userViewModelService.GetUser(int.Parse(User.Identity.Name));
+                user.PictureUrl = _userViewModelService.UploadPicture(file, user.Name + ".jpg");
+                _userViewModelService.UpdateUser(user);
                 return Ok();
             }
             catch (Exception ex)

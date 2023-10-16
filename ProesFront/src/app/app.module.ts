@@ -12,6 +12,7 @@ import { LoginPageComponent } from './login/login-page/login-page.component';
 import { FormsModule } from '@angular/forms';
 import { AlertModule, AlertConfig } from 'ngx-bootstrap/alert';
 import { JwtModule } from '@auth0/angular-jwt';
+import { UserPageComponent } from './login/user-page/user-page.component';
 export function tokenGetter() {
   return localStorage.getItem("token");
 }
@@ -29,7 +30,8 @@ export interface user {
     HomeComponent,
     MenuComponent,
     NotFoundComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    UserPageComponent
   ],
   imports: [
     AppRoutingModule,

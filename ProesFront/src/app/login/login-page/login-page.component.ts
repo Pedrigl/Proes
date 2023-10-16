@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Login, LoginResponse } from '../../Interfaces/login.model';
+import { Login, LoginResponse } from '../../interfaces/login.model';
 import { LoginRepositoryService } from '../../shared/services/login-repository.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';

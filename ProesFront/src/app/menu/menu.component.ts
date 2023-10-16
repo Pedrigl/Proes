@@ -14,5 +14,4 @@ export class MenuComponent implements OnInit{
     this.isHidden = this.authGuard.isAuthenticated;
   }
 
-  private 
 }

@@ -13,11 +13,17 @@ namespace ProesBack.Infrastructure.Data.EntityConfig
             
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
 
+            builder.Property(x => x.loginId).IsRequired();
+
+            builder.Property(x => x.UserType).IsRequired();
+
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
 
             builder.Property(x => x.Email).HasMaxLength(50).IsRequired();
             
             builder.Property(x=>x.BirthDate).IsRequired();
+
+            builder.Property(x => x.PictureUrl).HasMaxLength(200);
 
         }
     }

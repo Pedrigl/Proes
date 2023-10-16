@@ -11,5 +11,7 @@ namespace ProesBack.Interfaces
         void DeleteUser(int id);
 
         void InsertUser(User user);
+
+        string UploadPicture(IFormFile picture, string fileName);
     }
 }
