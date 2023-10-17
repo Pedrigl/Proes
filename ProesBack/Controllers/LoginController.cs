@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using IdentityModel.Client;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using ProesBack.Domain.Entities;
 using ProesBack.Interfaces;
 
@@ -22,7 +24,7 @@ namespace ProesBack.Controllers
             try
             {
                 var user = _loginViewModelService.GetLogin(login.Username, login.Password) ;
-                var token = _loginViewModelService.GenerateToken(user);
+                var token = _loginViewModelService.Authenticate(user);
 
                 if (token == null)
                     return BadRequest("Username or password is incorrect");
@@ -48,14 +50,18 @@ namespace ProesBack.Controllers
             {
                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                     return BadRequest("Username or password is empty");
+
                 var user = _loginViewModelService.GetLogin(username, password);
-                if(user == null)
+                if(user.Username.IsNullOrEmpty())
                 {
                     _loginViewModelService.InsertLogin(new Domain.Entities.Login
                     {
                         Username = username,
-                        Password = password
+                        Password = password,
+                        TokenExpiration = 3,
+                        Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
                     });
+
                     return CreatedAtAction(null, null);
                 }
             }
