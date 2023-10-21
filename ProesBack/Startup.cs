@@ -47,11 +47,7 @@ namespace ProesBack
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
-                    ValidateAudience=false,
-                    LifetimeValidator = (before, expires, token, param) =>
-                    {
-                        return expires > DateTime.UtcNow;
-                    }
+                    ValidateAudience=false
                 };
             });
 

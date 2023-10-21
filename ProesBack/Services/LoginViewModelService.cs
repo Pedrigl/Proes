@@ -21,7 +21,7 @@ namespace ProesBack.Services
             _mapper = mapper;
         }
 
-        public string Authenticate(Login login)
+        public string GenerateToken(Login login)
         {
             var credentials = _loginRepository.Login(login.Username, login.Password);
             //fazer autenticação
@@ -29,13 +29,12 @@ namespace ProesBack.Services
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
                 
-                var key = Encoding.ASCII.GetBytes(GetKey(credentials.Id));
+                var key = Encoding.ASCII.GetBytes(Settings.GetKey());
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new Claim(ClaimTypes.Name, credentials.Username.ToString()),
-                        new Claim(ClaimTypes.Role, credentials.UserType.ToString())
+                        new Claim(ClaimTypes.Name, credentials.Username.ToString())
                     }),
                     Expires = DateTime.UtcNow.AddHours(3),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
@@ -49,13 +48,6 @@ namespace ProesBack.Services
             return null;
         }
         
-        public string GetKey(int id)
-        {
-            var login = _loginRepository.Get(id);
-            var key = login.Token;
-            return key;
-        }
-
         public Login GetLogin(int id)
         {
             return _loginRepository.Get(id);

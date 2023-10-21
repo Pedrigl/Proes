@@ -4,10 +4,9 @@ namespace ProesBack.Interfaces
 {
     public interface ILoginViewModelService
     {
-        string GetKey(int id);
         Login GetLogin(int id);
         Login GetLogin(string username, string password);
-        string Authenticate(Login login);
+        string GenerateToken(Login login);
         void InsertLogin(Login login);
         void UpdateLogin(Login login);
         void DeleteLogin(int id);
