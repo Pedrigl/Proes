@@ -31,7 +31,7 @@ namespace ProesBack
             });
             services.AddControllers();
 
-            var key = Encoding.ASCII.GetBytes(Settings.GetKey());
+            var key = Encoding.ASCII.GetBytes();
 
             services.AddAuthentication(x =>
             {

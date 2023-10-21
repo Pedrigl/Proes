@@ -17,8 +17,6 @@ namespace ProesBack.Infrastructure.Data.EntityConfig
 
             builder.Property(x => x.loginId).IsRequired();
 
-            builder.Property(x => x.UserType).IsRequired();
-
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
 
             builder.Property(x => x.Email).HasMaxLength(50).IsRequired();
