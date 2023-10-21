@@ -49,3 +49,5 @@
 /ProesTests/bin/Debug/net7.0
 /ProesTests/obj
 *.testlog
+/ProesBack/obj/Release/net7.0
+/.vs
