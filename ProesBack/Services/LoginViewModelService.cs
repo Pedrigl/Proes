@@ -27,28 +27,26 @@ namespace ProesBack.Services
             //fazer autenticação
             if (credentials != null)
             {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                
-                var key = Encoding.ASCII.GetBytes(GetKey(credentials.Id));
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new Claim[]
-                    {
-                        new Claim(ClaimTypes.Name, credentials.Username.ToString()),
-                        new Claim(ClaimTypes.Role, credentials.UserType.ToString())
-                    }),
-                    Expires = DateTime.UtcNow.AddHours(3),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
-                                           SecurityAlgorithms.HmacSha256Signature)
-                };
-
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                return tokenHandler.WriteToken(token);
+                var token = GenerateJSONWebToken();
+                return token;
             }
 
             return null;
         }
         
+        private string GenerateJSONWebToken()
+        {
+            var chaveDeSeguranca = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Settings.GetKey()));
+            var credenciaisDeAcesso = new SigningCredentials(chaveDeSeguranca, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                                issuer: "ProesBack",
+                                audience: "ProesBack",
+                                expires: DateTime.Now.AddMinutes(30),
+                                signingCredentials: credenciaisDeAcesso
+                                );
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
         public string GetKey(int id)
         {
             var login = _loginRepository.Get(id);
