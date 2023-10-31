@@ -9,7 +9,7 @@ namespace ProesBack.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        private readonly string _rootPath = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName).FullName;
+        
 
         public UserViewModelService(IUserRepository userRepository, IMapper mapper)
         {
@@ -40,18 +40,9 @@ namespace ProesBack.Services
             _userRepository.Save();
         }
 
-        public string UploadPicture(IFormFile picture, string fileName)
+        public string UploadPicture(IFormFile picture)
         {
-            
-            var path = _rootPath;
-            using(var streamReader = new StreamReader(picture.OpenReadStream()))
-            {
-                var buffer = new byte[picture.Length];
-                
-                File.WriteAllBytes(path + "/Resources/Images/ProfilePictures/" + fileName, buffer);    
-            }
-
-            return fileName;
+            return "";
         }
     }
 }

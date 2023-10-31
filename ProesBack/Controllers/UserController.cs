@@ -34,14 +34,14 @@ namespace ProesBack.Controllers
         }
 
         [HttpPost("Insert")]
-        public IActionResult Insert(User user)
+        public async Task<IActionResult> Insert(User user)
         {
             try
             {
                 if (user == null)
                     return BadRequest("User is empty");
 
-                if (Get(user.loginId).Result == null)
+                if (await Get(user.loginId) != null)
                     return BadRequest("User already exists");
 
                 _userViewModelService.InsertUser(user);
@@ -99,7 +99,7 @@ namespace ProesBack.Controllers
                     return BadRequest("File is empty");
 
                 var user = _userViewModelService.GetUser(int.Parse(User.Identity.Name));
-                user.PictureUrl = _userViewModelService.UploadPicture(file, user.Name + ".jpg");
+                user.PictureUrl = _userViewModelService.UploadPicture(file);
                 _userViewModelService.UpdateUser(user);
                 return Ok();
             }

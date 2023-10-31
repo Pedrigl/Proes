@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ProesBack.Infrastructure.Data.Common;
 using ProesBack.Infrastructure.ExtensionMethods;
+using System.Security.Claims;
 using System.Text;
 
 namespace ProesBack
@@ -44,10 +45,13 @@ namespace ProesBack
                 x.SaveToken = true;
                 x.TokenValidationParameters = new()
                 {
-                    ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuerSigningKey = true,
                     ValidateIssuer = false,
-                    ValidateAudience=false
+                    ValidateAudience=false,
+                    ValidateLifetime = true,
+                    RoleClaimType = ClaimTypes.Role
+
                 };
             });
 

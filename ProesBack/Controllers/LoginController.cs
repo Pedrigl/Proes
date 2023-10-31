@@ -19,12 +19,12 @@ namespace ProesBack.Controllers
             _loginViewModelService = loginViewModelService;
         }
 
-        [HttpPost("Login")]
-        public async Task<ActionResult<dynamic>> Login(Login login)
+        [HttpGet("Login")]
+        public async Task<ActionResult<dynamic>> Login(string username, string password)
         {
             try
             {
-                var user = _loginViewModelService.GetLogin(login.Username, login.Password) ;
+                var user = _loginViewModelService.GetLogin(username, password) ;
                 var token = _loginViewModelService.Authenticate(user);
 
                 _loginViewModelService.UpdateLogin(new Login{
@@ -32,7 +32,7 @@ namespace ProesBack.Controllers
                     Username = user.Username,
                     Password = user.Password,
                     Token = token,
-                    TokenExpiration = 3,
+                    TokenExpiration = 30,
                     UserType = user.UserType
                 });
 
@@ -48,6 +48,22 @@ namespace ProesBack.Controllers
                 return StatusCode(500, ex.Message);
                 throw;
             }
+        }
+
+        [HttpPost("RefreshToken")]
+        public async Task<IActionResult> Refresh([FromBody]string token)
+        {
+            try
+            {
+                var refreshToken = _loginViewModelService.RefreshJSONWebToken(token);
+                return Ok(new { token = refreshToken });
+            }
+
+            catch (SecurityTokenException ex)
+            {
+                return BadRequest("Invalid token");
+            }
+            
         }
 
         [HttpPost("Register")]
