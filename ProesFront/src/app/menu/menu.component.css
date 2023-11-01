@@ -1,0 +1,18 @@
+.apple-link {
+  color: #626060;
+  text-decoration: none;
+}
+
+  .apple-link:hover {
+    color: #0056b3;
+    
+  }
+
+  .apple-link:active {
+    color: #0056b3;
+  }
+
+  .apple-link:focus {
+    color: #0056b3;
+    outline: none;
+  }

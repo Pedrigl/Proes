@@ -16,7 +16,7 @@ export class LoginRepositoryService {
   userModel!: Login
 
   public login = (login: Login) => {
-    return this.http.post<LoginResponse>(this.envUrl.urlAddress + "/api/Login/Login", login);
+    return this.http.get<LoginResponse>(this.envUrl.urlAddress + `/api/Login/Login?username=${login.username}&password=${login.password}`);
   }
 
   public register = (login: Login) => {

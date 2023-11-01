@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import {AuthGuard} from '../shared/services/auth-guard/auth.guard'; 
 @Component({
   selector: 'app-menu',
@@ -8,6 +8,32 @@ import {AuthGuard} from '../shared/services/auth-guard/auth.guard';
 export class MenuComponent implements OnInit{
   isCollapsed: boolean = false;
   isHidden: boolean = false;
+  showList: boolean = false;
+  items: string[] = ["Profile", "Settings", "Sign Out"]
+  @ViewChild('listGroup') listGroup!: ElementRef;
+
+  @HostListener('document:click', ['$event'])
+  clickout(event: any) {
+    
+    if (!event.target.closest('.list-group')) {
+
+      const rect = this.listGroup.nativeElement.getBoundingClientRect();
+      const isClickedInside = (
+        rect.top <= event.clientY &&
+        rect.bottom >= event.clientY &&
+        rect.left <= event.clientX &&
+        rect.right >= event.clientX
+      );
+
+      if (!isClickedInside) {
+        this.showList = false;
+      }
+    }
+  }
+
+  stopClickPropagation(event: any) {
+    event.stopPropagation();
+  }
   constructor(private authGuard : AuthGuard) { }
 
   ngOnInit(): void {

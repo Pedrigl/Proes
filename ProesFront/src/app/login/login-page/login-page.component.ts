@@ -14,8 +14,8 @@ import {MenuComponent} from '../../menu/menu.component';
 export class LoginPageComponent implements OnInit{
   constructor(private router:Router, private loginRepository: LoginRepositoryService) {
   }
-  loginError: boolean = false;
 
+  loginError: boolean = false;
   registerError: boolean = false;
   registerMode: boolean = false;
   registerErrorMessage!: string;
@@ -31,12 +31,16 @@ export class LoginPageComponent implements OnInit{
   }
 
   public loginSubmit() {
+    console.log(this.login);
     this.loginRepository.login(this.login)
       .subscribe(res => {
         localStorage.setItem('token', res.token);
         this.router.navigateByUrl('/home');
       },
-      error => this.loginError = true);
+        error => {
+          console.log(error);
+          this.loginError = true;
+        });
   }
 
   public registerSubmit(){

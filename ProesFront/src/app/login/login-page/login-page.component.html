@@ -1,9 +1,11 @@
-<div class="container">
-  <h1 *ngIf="!registerMode">Login</h1>
-  <h1 *ngIf="registerMode">Register</h1>
+<div class="d-flex align-items-center flex-column">
+  <div class="d-flex justify-content-center align-items-center">
+    <h1 *ngIf="!registerMode">Login</h1>
+    <h1 *ngIf="registerMode">Register</h1>
+  </div>
   <hr>
 
-  <div class="justify-content-center align-items-center" *ngIf="!registerMode">
+  <div class="d-flex justify-content-center align-items-center" *ngIf="!registerMode">
     <form (ngSubmit)="loginSubmit()">
       <div class="form-outline mb-4">
         <label class="form-label">Email</label>
@@ -26,7 +28,7 @@
     </form>
   </div>
 
-  <div class="justify-content-center align-items-center" *ngIf="registerMode">
+  <div class="d-flex justify-content-center align-items-center" *ngIf="registerMode">
     <form (ngSubmit)="registerSubmit()">
       <div class="form-outline mb-4">
         <label class="form-label">Username</label>
@@ -41,8 +43,13 @@
       <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
     </form>
   </div>
-  <div class="form-check form-switch mb-4">
-    <input class="form-check-input" type="checkbox" id="toggleSwitch" name="registerToggle" (change)="registerModeToggle()">
-    <label class="form-check-label" for="toggleSwitch">Sign in Mode</label>
+
+  <div class="d-flex justify-content-start mb-4" style="width: 15%">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="toggleSwitch" name="registerToggle" (change)="registerModeToggle()">
+      <label *ngIf="!registerMode" class="form-check-label" for="toggleSwitch">Sign in Mode</label>
+      <label *ngIf="registerMode" class="form-check-label" for="toggleSwitch">Register Mode</label>
+    </div>
+    <div class="ml-auto"></div>
   </div>
 </div>

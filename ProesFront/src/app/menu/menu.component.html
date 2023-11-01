@@ -14,14 +14,21 @@
     <div class="collapse navbar-collapse" id="collapseNav" [collapse]="!isCollapsed" [isAnimated]="true">
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item ms-0">
-          <a class="nav-link active" aria-current="page" href="#">Proes</a>
+          <a class="nav-link active" aria-current="page" href="home">Proes</a>
         </li>
       </ul>
-      
+
       <!-- Left links -->
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <a class="nav-link" href="login">Login</a>
-          <a class="nav-link" href="login">Register</a>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 position-relative">
+        <div class="position-relative d-inline-block">
+            <img (click)="showList = !showList; stopClickPropagation($event)" src="https://lh3.googleusercontent.com/a/ACg8ocKHgO0nx1e2b_U_S1oMujhg9IDQyrW-kC1hh4fgliVM0Ds=s288-c-no" alt="Button Image" class="img-fluid rounded-circle" style="max-width: 40px; max-height: 40px;" />
+
+          <ul (click)="stopClickPropagation($event)" *ngIf="showList" #listGroup class="list-group mt-2 position-absolute" style=" right: 0;">
+            <li *ngFor="let item of items" class="list-group-item p-3">
+              <a [routerLink]="['/' + item]" class="apple-link ">{{item}}</a>
+            </li>
+          </ul>
+        </div>
       </ul>
       <!-- Left links -->
     </div>
