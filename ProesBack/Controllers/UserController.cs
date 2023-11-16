@@ -20,7 +20,7 @@ namespace ProesBack.Controllers
         }
 
         [HttpGet("Get")]
-        public async Task<ActionResult<dynamic>> Get(int userId)
+        public async Task<User> Get(int userId)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace ProesBack.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return null;
             }
         }
 
@@ -41,11 +41,13 @@ namespace ProesBack.Controllers
                 if (user == null)
                     return BadRequest("User is empty");
 
-                if (await Get(user.loginId) != null)
+                var newUser = await Get(user.Id);
+                
+                if (newUser != null)
                     return BadRequest("User already exists");
 
                 _userViewModelService.InsertUser(user);
-                return Ok();
+                return Ok(user);
             }
             catch (Exception ex)
             {
