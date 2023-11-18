@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { EnvironmentUrlService } from '../environment-url.service';
 import { Observable } from 'rxjs';
+import { KeyValue } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,21 +12,41 @@ export class AuthorizedHttpClientService {
     
   }
 
-  createAuthorizationHeader(headers :HttpHeaders): void {
-    headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+  addHeaders(headers: KeyValue<string, string>[]): HttpHeaders {
+    let httpHeaders = new HttpHeaders();
+
+    headers.forEach(header => {
+      httpHeaders.append(header.key, header.value);
+    });
+
+    return httpHeaders;
+  }
+
+  getAuthTocken(): string {
+    return localStorage.getItem('token') || '';
   }
 
   get<T>(url: string): Observable<T> {
-    let headers = new HttpHeaders();
-    this.createAuthorizationHeader(headers);
+
+    let token = this.getAuthTocken();
+
+    let headers = this.addHeaders([
+      { key: 'Authorization', value: `Bearer ${token}` }
+    ]);
+
     return this.client.get<T>(this.envUrl.urlAddress + url, {
       headers: headers
     });
   }
 
   post<T>(url: string, data: any): Observable<T> {
-    let headers = new HttpHeaders();
-    this.createAuthorizationHeader(headers);
+
+    let token = this.getAuthTocken();
+
+    let headers = this.addHeaders([
+      { key: 'Authorization', value: `Bearer ${token}` }
+    ]);
+
     return this.client.post<T>(this.envUrl.urlAddress + url, data, {
       headers: headers
     });
