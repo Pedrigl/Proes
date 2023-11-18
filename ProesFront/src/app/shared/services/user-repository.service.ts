@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthorizedHttpClientService } from './utils/authorized-http-client.service';
 import { EnvironmentUrlService } from './environment-url.service'; 
+import { UserModel } from '../../interfaces/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +16,12 @@ export class UserRepositoryService {
     this.httpClient = new AuthorizedHttpClientService(http, this.envUrl);
   }
 
+  public getUserByLoginId = (loginId: number) => {
+    return this.httpClient.get<UserModel>(this.envUrl.urlAddress + `/api/User/GetByLoginId?=${loginId}`);
+  }
+
+public getUserById = (id: number) => {
+    return this.httpClient.get<UserModel>(this.envUrl.urlAddress + `/api/User/GetByUserId?id=${id}`);
+  }
 
 }

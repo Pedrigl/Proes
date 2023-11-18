@@ -17,7 +17,12 @@ namespace ProesBack.Services
             _mapper = mapper;
         }
 
-        public User GetUser(int id)
+        public User GetUserByLoginId(int loginId)
+        {
+            return _userRepository.GetByLoginId(loginId);
+        }
+
+        public User GetByUserId(int id)
         {
             return _userRepository.Get(id);
         }

@@ -19,12 +19,26 @@ namespace ProesBack.Controllers
             _userViewModelService = userViewModelService;
         }
 
-        [HttpGet("Get")]
-        public async Task<User> Get(int userId)
+        [HttpGet("GetByLoginId")]
+        public async Task<User> GetByLoginId(int loginId)
         {
             try
             {
-                var user = _userViewModelService.GetUser(userId);
+                var user = _userViewModelService.GetUserByLoginId(loginId);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [HttpGet("GetByUserId")]
+        public async Task<User> GetByUserId(int userId)
+        {
+            try
+            {
+                var user = _userViewModelService.GetByUserId(userId);
                 return user;
             }
             catch (Exception ex)
@@ -41,7 +55,7 @@ namespace ProesBack.Controllers
                 if (user == null)
                     return BadRequest("User is empty");
 
-                var newUser = await Get(user.Id);
+                var newUser = await GetByUserId(user.Id);
                 
                 if (newUser != null)
                     return BadRequest("User already exists");
@@ -63,7 +77,7 @@ namespace ProesBack.Controllers
                 if (user == null)
                     return BadRequest("User is empty");
 
-                if (Get(user.loginId) == null)
+                if (GetByUserId(user.Id) == null)
                     return BadRequest("User not found");
 
                 _userViewModelService.UpdateUser(user);
@@ -76,14 +90,14 @@ namespace ProesBack.Controllers
         }
 
         [HttpDelete("Delete")]
-        public IActionResult Delete(int loginId)
+        public IActionResult Delete(int userId)
         {
             try
             {
-                if (Get(loginId) == null)
+                if (GetByUserId(userId) == null)
                     return BadRequest("User not found");
 
-                _loginViewModelService.DeleteLogin(loginId);
+                _loginViewModelService.DeleteLogin(userId);
                 return Ok();
             }
             catch (Exception ex)
@@ -100,7 +114,7 @@ namespace ProesBack.Controllers
                 if (file == null)
                     return BadRequest("File is empty");
 
-                var user = _userViewModelService.GetUser(int.Parse(User.Identity.Name));
+                var user = _userViewModelService.GetByUserId(int.Parse(User.Identity.Name));
                 user.PictureUrl = _userViewModelService.UploadPicture(file);
                 _userViewModelService.UpdateUser(user);
                 return Ok();

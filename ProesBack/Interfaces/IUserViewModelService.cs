@@ -4,7 +4,9 @@ namespace ProesBack.Interfaces
 {
     public interface IUserViewModelService
     {
-        User GetUser(int id);
+        User GetUserByLoginId(int loginId);
+
+        User GetByUserId(int id);
 
         void UpdateUser(User user);
 

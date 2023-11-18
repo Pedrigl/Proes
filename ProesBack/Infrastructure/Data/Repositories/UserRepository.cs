@@ -13,5 +13,10 @@ namespace ProesBack.Infrastructure.Data.Repositories
             _context = context;
         }
 
+        public User GetByLoginId(int loginId)
+        {
+            return _context.Users.FirstOrDefault(x => x.loginId == loginId);
+        }
+
     }
 }

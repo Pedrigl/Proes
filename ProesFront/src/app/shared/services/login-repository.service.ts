@@ -13,8 +13,6 @@ export class LoginRepositoryService {
 
   constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { }
 
-  userModel!: Login
-
   public login = (login: Login) => {
     return this.http.get<LoginResponse>(this.envUrl.urlAddress + `/api/Login/Login?username=${login.username}&password=${login.password}`);
   }
