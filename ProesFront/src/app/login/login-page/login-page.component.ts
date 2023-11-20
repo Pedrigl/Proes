@@ -31,7 +31,6 @@ export class LoginPageComponent implements OnInit{
   }
 
   public loginSubmit() {
-    console.log(this.login);
     this.loginRepository.login(this.login)
       .subscribe(res => {
         localStorage.setItem('token', res.token);

@@ -7,7 +7,7 @@ import {AuthGuard} from '../shared/services/auth-guard/auth.guard';
 })
 export class MenuComponent implements OnInit{
   isCollapsed: boolean = false;
-  isHidden: boolean = false;
+  isVisible: boolean = false;
   showList: boolean = false;
   items: string[] = ["Profile", "Settings", "Sign Out"]
   @ViewChild('listGroup') listGroup!: ElementRef;
@@ -15,8 +15,7 @@ export class MenuComponent implements OnInit{
   @HostListener('document:click', ['$event'])
   clickout(event: any) {
     
-    if (!event.target.closest('.list-group')) {
-
+    if (this.isVisible && !event.target.closest('.list-group')) {
       const rect = this.listGroup.nativeElement.getBoundingClientRect();
       const isClickedInside = (
         rect.top <= event.clientY &&
@@ -37,7 +36,7 @@ export class MenuComponent implements OnInit{
   constructor(private authGuard : AuthGuard) { }
 
   ngOnInit(): void {
-    this.isHidden = this.authGuard.isAuthenticated;
+    this.isVisible = this.authGuard.isAuthenticated;
   }
 
 }
