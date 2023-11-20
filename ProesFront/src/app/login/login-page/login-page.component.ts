@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Login, LoginResponse } from '../../interfaces/login.model';
+import { Login, LoginResponse } from '../../Interfaces/login.model';
 import { LoginRepositoryService } from '../../shared/services/login-repository.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {MenuComponent} from '../../menu/menu.component'; 
+import { UserRepositoryService } from '../../shared/services/user-repository.service';
 
 @Component({
   selector: 'app-login-page',
@@ -12,13 +13,14 @@ import {MenuComponent} from '../../menu/menu.component';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit{
-  constructor(private router:Router, private loginRepository: LoginRepositoryService) {
+  constructor(private router:Router, private loginRepository: LoginRepositoryService, private userRepository: UserRepositoryService) {
   }
 
   loginError: boolean = false;
   registerError: boolean = false;
   registerMode: boolean = false;
   registerErrorMessage!: string;
+  userExists: boolean = false;
 
   login: Login = {
     username: "",
@@ -30,13 +32,18 @@ export class LoginPageComponent implements OnInit{
     this.registerMode = !this.registerMode;
   }
 
-  public loginSubmit() {
+  public async loginSubmit() {
     this.loginRepository.login(this.login)
       .subscribe(res => {
         localStorage.setItem('token', res.token);
 
-        
-        this.router.navigateByUrl('/home');
+        if (this.userExists) {
+          this.router.navigateByUrl('/home');
+        }
+
+        else {
+          this.router.navigateByUrl('/user');
+        }
       },
         error => {
           console.log(error);
@@ -56,6 +63,13 @@ export class LoginPageComponent implements OnInit{
           this.registerError = true;
           console.log(error)
         });
+  }
+
+  private checkForUser(loginId: number): void {
+    this.userRepository.getUserByLoginId(loginId)
+      .subscribe(res => {
+        this.userExists = res.id != null;
+      });
   }
 
   ngOnInit(): void {

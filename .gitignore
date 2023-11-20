@@ -50,3 +50,5 @@
 /ProesTests/obj
 *.testlog
 /ProesBack/.vs/Proes/copilot/101161536
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json

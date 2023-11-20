@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthorizedHttpClientService } from './utils/authorized-http-client.service';
 import { EnvironmentUrlService } from './environment-url.service'; 
-import { UserModel } from '../../interfaces/user.model';
+import { UserModel } from '../../Interfaces/user.model';
 
 @Injectable({
   providedIn: 'root'
