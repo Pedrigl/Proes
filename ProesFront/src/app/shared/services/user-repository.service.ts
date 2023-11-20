@@ -20,8 +20,12 @@ export class UserRepositoryService {
     return this.httpClient.get<UserModel>(this.envUrl.urlAddress + `/api/User/GetByLoginId?=${loginId}`);
   }
 
-public getUserById = (id: number) => {
+  public getUserById = (id: number) => {
     return this.httpClient.get<UserModel>(this.envUrl.urlAddress + `/api/User/GetByUserId?id=${id}`);
+  }
+
+  public createUser = (user: UserModel) => {
+    return this.httpClient.post<UserModel>(this.envUrl.urlAddress + "/api/User/Create", user);
   }
 
 }

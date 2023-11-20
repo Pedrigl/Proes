@@ -67,20 +67,20 @@ namespace ProesBack.Controllers
         }
 
         [HttpPost("Register")]
-        public IActionResult Register(string username, string password)
+        public IActionResult Register([FromBody] Login login)
         {
             try
             {
-                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                if (string.IsNullOrEmpty(login.Username) || string.IsNullOrEmpty(login.Password))
                     return BadRequest("Username or password is empty");
 
-                var user = _loginViewModelService.GetLogin(username, password);
+                var user = _loginViewModelService.GetLogin(login.Username, login.Password);
                 if(user.Username.IsNullOrEmpty())
                 {
-                    _loginViewModelService.InsertLogin(new Domain.Entities.Login
+                    _loginViewModelService.InsertLogin(new Login
                     {
-                        Username = username,
-                        Password = password,
+                        Username = login.Username,
+                        Password = login.Password,
                         TokenExpiration = 3,
                         Token = Encoding.ASCII.GetBytes(Settings.GetKey()).ToString()
                 });
@@ -93,7 +93,7 @@ namespace ProesBack.Controllers
                 StatusCode(500, ex.Message);
                 throw;
             }
-            return BadRequest(username + " already exists");
+            return BadRequest(login.Username+ " already exists");
             
         }
     }

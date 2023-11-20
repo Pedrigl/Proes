@@ -47,7 +47,7 @@ namespace ProesBack.Controllers
             }
         }
 
-        [HttpPost("Insert")]
+        [HttpPost("Create")]
         public async Task<IActionResult> Insert(User user)
         {
             try
