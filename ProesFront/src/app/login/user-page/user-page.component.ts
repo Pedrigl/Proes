@@ -10,10 +10,17 @@ export class UserPageComponent {
   constructor(private userRepository: UserRepositoryService) {
   }
 
-  
+  user!: UserModel
 
-  async checkForUser(loginId: number): Promise<boolean> {
-    let user = await this.userRepository.getUserByLoginId(loginId).toPromise();
-    return user != null;
+  async createUser() {
+    this.userRepository.createUser(this.user)
+      .subscribe(res => {
+        this.user = res;
+      },
+        err => {
+          console.log(err);
+        })
+
   }
+  
 }
