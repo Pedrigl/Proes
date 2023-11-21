@@ -32,7 +32,6 @@ namespace ProesBack.Infrastructure.Data.Common
         public void Insert(T entity)
         {
             _dbContext.Set<T>().AddAsync(entity);
-            
         }
 
         public void Update(T entity)

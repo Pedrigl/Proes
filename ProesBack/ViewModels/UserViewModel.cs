@@ -26,7 +26,7 @@ namespace ProesBack.ViewModels
         public DateTime BirthDate { get; set; }
 
         [Display(Name = "FotoDePerfil")]
-        public string UserPictureUrl { get; set; }
+        public string? UserPictureUrl { get; set; }
 
 
 
