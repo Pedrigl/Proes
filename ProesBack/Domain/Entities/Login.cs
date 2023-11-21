@@ -8,9 +8,9 @@ namespace ProesBack.Domain.Entities
 
         public string Password { get; set; }
 
-        public string Token { get; set; }
+        public string? Token { get; set; }
 
-        public int TokenExpiration { get; set; }
+        public int? TokenExpiration { get; set; }
 
         public UserType UserType { get; set; }
     }
