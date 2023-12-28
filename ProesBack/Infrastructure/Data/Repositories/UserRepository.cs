@@ -6,16 +6,16 @@ namespace ProesBack.Infrastructure.Data.Repositories
 {
     public class UserRepository : GenericRepository<User> , IUserRepository
     {
-        private readonly ProesContext _context;
+        private readonly ProesContext _dbContext;
 
-        public UserRepository(ProesContext context) : base(context)
+        public UserRepository(ProesContext dbContext) : base(dbContext)
         {
-            _context = context;
+            _dbContext = dbContext;
         }
 
         public User GetByLoginId(int loginId)
         {
-            return _context.Users.FirstOrDefault(x => x.loginId == loginId);
+            return _dbContext.Users.FirstOrDefault(x => x.loginId == loginId);
         }
 
     }

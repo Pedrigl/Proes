@@ -16,23 +16,29 @@ export class AuthorizedHttpClientService {
     let httpHeaders = new HttpHeaders();
 
     headers.forEach(header => {
-      httpHeaders.append(header.key, header.value);
+      httpHeaders = httpHeaders.append(header.key, header.value);
     });
 
     return httpHeaders;
   }
 
-  getAuthTocken(): string {
-    return localStorage.getItem('token') || '';
+  getAuthToken(): string {
+    let token = localStorage.getItem('token');
+    if (token == null) {
+      return '';
+    }
+
+    return token;
   }
 
   get<T>(url: string): Observable<T> {
 
-    let token = this.getAuthTocken();
+    let token = this.getAuthToken();
 
     let headers = this.addHeaders([
       { key: 'Authorization', value: `Bearer ${token}` }
     ]);
+
 
     return this.client.get<T>(this.envUrl.urlAddress + url, {
       headers: headers
@@ -41,7 +47,7 @@ export class AuthorizedHttpClientService {
 
   post<T>(url: string, data: any): Observable<T> {
 
-    let token = this.getAuthTocken();
+    let token = this.getAuthToken();
 
     let headers = this.addHeaders([
       { key: 'Authorization', value: `Bearer ${token}` }

@@ -75,7 +75,7 @@ namespace ProesBack.Controllers
                     return BadRequest("Username or password is empty");
 
                 var user = _loginViewModelService.GetLogin(login.Username, login.Password);
-                if(user !=null)
+                if(user ==null)
                 {
                     _loginViewModelService.InsertLogin(new Login
                     {

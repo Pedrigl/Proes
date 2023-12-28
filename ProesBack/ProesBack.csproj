@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Common\Utils\" />
     <Folder Include="Infrastructure\Data\Migrations\" />
     <Folder Include="Resources\Images\" />
   </ItemGroup>

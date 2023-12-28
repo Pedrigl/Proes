@@ -17,11 +17,13 @@ export class UserRepositoryService {
   }
 
   public getUserByLoginId = (loginId: number) => {
-    return this.httpClient.get<UserModel>(this.envUrl.urlAddress + `/api/User/GetByLoginId?=${loginId}`);
+    let url = this.envUrl.urlAddress + `/api/User/GetByLoginId?loginId=${loginId}`;
+    console.log(url);
+    return this.httpClient.get<UserModel>(url);
   }
 
   public getUserById = (id: number) => {
-    return this.httpClient.get<UserModel>(this.envUrl.urlAddress + `/api/User/GetByUserId?id=${id}`);
+    return this.httpClient.get<UserModel>(this.envUrl.urlAddress + `/api/User/GetByUserId?userId=${id}`);
   }
 
   public createUser = (user: UserModel) => {
