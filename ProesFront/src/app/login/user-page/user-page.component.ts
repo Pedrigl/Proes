@@ -14,6 +14,7 @@ export class UserPageComponent {
   user!: UserModel
 
   async createUser() {
+    
     this.userRepository.createUser(this.user)
       .subscribe(res => {
         this.user = res;

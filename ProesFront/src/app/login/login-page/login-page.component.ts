@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Login, LoginResponse } from '../../Interfaces/login.model';
 import { LoginRepositoryService } from '../../shared/services/login-repository.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -33,16 +33,19 @@ export class LoginPageComponent implements OnInit{
   }
 
   public async loginSubmit() {
+
     this.loginRepository.login(this.login)
       .subscribe(res => {
         localStorage.setItem('token', res.token);
+        
+        this.checkForUser(res.id);
 
         if (this.userExists) {
-          this.router.navigateByUrl('/home');
+          this.router.navigate(['/home']);
         }
 
         else {
-          this.router.navigateByUrl('/user');
+          this.router.navigate(['/user']);
         }
       },
         error => {
@@ -51,7 +54,8 @@ export class LoginPageComponent implements OnInit{
         });
   }
 
-  public registerSubmit(){
+  public registerSubmit() {
+
     this.loginRepository.register(this.login)
       .subscribe(res => {
         this.login.username = res.username;
@@ -66,10 +70,17 @@ export class LoginPageComponent implements OnInit{
   }
 
   private checkForUser(loginId: number): void {
+
     this.userRepository.getUserByLoginId(loginId)
       .subscribe(res => {
         this.userExists = res.id != null;
-      });
+      },
+        (err: HttpErrorResponse) => {
+          console.log(err.status)
+          console.log(err.statusText)
+          console.log(err.url)
+          console.log(err.message);
+        });
   }
 
   ngOnInit(): void {
