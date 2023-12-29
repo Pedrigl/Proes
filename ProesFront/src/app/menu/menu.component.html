@@ -21,7 +21,10 @@
       <!-- Left links -->
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 position-relative">
         <div class="position-relative d-inline-block">
-            <img (click)="showList = !showList; stopClickPropagation($event)" src="../../assets/images/DefaultPFP.png" alt="Button Image" class="img-fluid rounded-circle" style="max-width: 40px; max-height: 40px;" />
+
+          <i class="bi bi-envelope me-4"></i>
+
+          <img (click)="showList = !showList; stopClickPropagation($event)" src="../../assets/images/DefaultPFP.png" alt="Button Image" class="img-fluid rounded-circle mb-2" style="max-width: 40px; max-height: 40px;" />
 
           <ul (click)="stopClickPropagation($event)" *ngIf="showList" #listGroup class="list-group mt-2 position-absolute" style=" right: 0;">
             <li class="list-group-item p-3">

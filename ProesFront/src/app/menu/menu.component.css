@@ -1,3 +1,5 @@
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
 .apple-link {
   color: #626060;
   text-decoration: none;
@@ -15,4 +17,9 @@
   .apple-link:focus {
     color: #0056b3;
     outline: none;
+  }
+
+  .bi-envelope{
+      font-size:1.5em;
+      color:white;
   }
