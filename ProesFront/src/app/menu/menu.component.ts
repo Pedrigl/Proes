@@ -9,7 +9,6 @@ export class MenuComponent implements OnInit{
   isCollapsed: boolean = false;
   isVisible: boolean = false;
   showList: boolean = false;
-  items: string[] = ["Profile", "Settings", "Sign Out"]
   @ViewChild('listGroup') listGroup!: ElementRef;
 
   @HostListener('document:click', ['$event'])

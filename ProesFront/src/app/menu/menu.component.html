@@ -24,8 +24,14 @@
             <img (click)="showList = !showList; stopClickPropagation($event)" src="../../assets/images/DefaultPFP.png" alt="Button Image" class="img-fluid rounded-circle" style="max-width: 40px; max-height: 40px;" />
 
           <ul (click)="stopClickPropagation($event)" *ngIf="showList" #listGroup class="list-group mt-2 position-absolute" style=" right: 0;">
-            <li *ngFor="let item of items" class="list-group-item p-3">
-              <a [routerLink]="['/' + item]" class="apple-link ">{{item}}</a>
+            <li class="list-group-item p-3">
+              <a [routerLink]="['/profile']" class="apple-link ">Profile</a>
+            </li>
+            <li class="list-group-item p-3">
+              <a [routerLink]="['/settings']" class="apple-link ">Settings</a>
+            </li>
+            <li class="list-group-item p-3">
+              <a [routerLink]="['/logout']" class="apple-link ">Logout</a>
             </li>
           </ul>
         </div>
