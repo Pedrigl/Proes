@@ -13,6 +13,8 @@ namespace ProesBack.Infrastructure.Web
             CreateMap<Login, LoginViewModel>();
             CreateMap<UserViewModel, User>();
             CreateMap<User, UserViewModel>();
+            CreateMap<NotificationViewModel, Notification>();
+            CreateMap<Notification, NotificationViewModel>();
         }
     }
 }

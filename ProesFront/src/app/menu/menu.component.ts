@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import {AuthGuard} from '../shared/services/auth-guard/auth.guard'; 
+import { AuthGuard } from '../shared/services/auth-guard/auth.guard';
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
