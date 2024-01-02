@@ -10,7 +10,7 @@ namespace ProesBack.Domain.Entities
         public DateTime Date { get; set; }
         public NotificationType Type { get; set; }
         
-        //TODO: DESCOBRIR COMO A NOTIFICAÇÃO VAI SE RELACIONAR COM SEU SENDER, CRIAR SEU VIEW MODEL E SEU MAP, E CRIAR SUA TABELA NO BANCO DE DADOS
+        //TODO: CRIAR SUA TABELA NO BANCO DE DADOS
 
     }
 }
