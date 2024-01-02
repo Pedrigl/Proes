@@ -17,9 +17,9 @@ namespace ProesBack.Infrastructure.Data.EntityConfig
 
             builder.Property(x => x.IsRead).IsRequired();
 
-            builder.Property(x => x.UserId).IsRequired();
+            builder.Property(x => x.SenderId).IsRequired();
 
-            builder.Property(x => x.date).IsRequired();
+            builder.Property(x => x.Date).IsRequired();
 
             builder.Property(x => x.Type).IsRequired();
 
