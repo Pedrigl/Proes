@@ -8,7 +8,6 @@ using ProesBack.Domain.Interfaces;
 using ProesBack.Interfaces;
 using ProesBack.Infrastructure.Web;
 using ProesTests;
-using ProesBack.Common.Utils.DropBox;
 
 namespace ProesBack.Services.Tests
 {
@@ -18,7 +17,6 @@ namespace ProesBack.Services.Tests
         private readonly IMapper _mapperMock;
         private readonly User _testUser;
         private readonly UserViewModelService _testUserService;
-        private readonly DropBox _dropBox;
 
         public UserViewModelServiceTests()
         {
@@ -34,7 +32,6 @@ namespace ProesBack.Services.Tests
 
             _testUserService = new UserViewModelService(_userRepositoryMock.Object, _mapperMock);
 
-            _dropBox = new DropBox();
         }
 
         [Fact]
@@ -44,7 +41,7 @@ namespace ProesBack.Services.Tests
             _userRepositoryMock.Setup(x => x.Get(_testUser.Id)).Returns(_testUser);
 
             //Act
-            var result = _testUserService.GetUser(_testUser.Id);
+            var result = _testUserService.GetByUserId(_testUser.Id);
 
             //Assert
             Assert.Equal(_testUser, result);
@@ -88,15 +85,6 @@ namespace ProesBack.Services.Tests
 
             //Assert
             _userRepositoryMock.Verify(x => x.Save(), Times.Once);
-        }
-
-        [Fact]
-
-        public async void ShouldDownloadProfilePictureFromDropbox() 
-        {
-            _dropBox.GetFileFromDropBox("/ProfilePictures/Pedro.jpg");
-            var link = await _dropBox.GetFileLinkFromDropBox("/ProfilePictures/Pedro.jpg");
-            link.Should().NotBeNullOrEmpty();
         }
         
     }
