@@ -71,16 +71,23 @@ export class LoginPageComponent implements OnInit{
 
   private checkForUser(loginId: number): void {
 
+    //this.userRepository.getUserByLoginId(loginId)
+    //  .subscribe(res => {
+    //    this.userExists = res.id != null;
+    //  },
+    //    (err: HttpErrorResponse) => {
+    //      console.log(err.message);
+    //    });
+
     this.userRepository.getUserByLoginId(loginId)
-      .subscribe(res => {
-        this.userExists = res.id != null;
-      },
-        (err: HttpErrorResponse) => {
-          console.log(err.status)
-          console.log(err.statusText)
-          console.log(err.url)
-          console.log(err.message);
-        });
+      .subscribe({
+        next: res => {
+          this.userExists = res.id != null;
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error.message);
+        }
+      });
   }
 
   ngOnInit(): void {

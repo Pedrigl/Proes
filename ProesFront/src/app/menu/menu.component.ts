@@ -10,6 +10,8 @@ export class MenuComponent implements OnInit{
   isCollapsed: boolean = false;
   isVisible: boolean = false;
   showList: boolean = false;
+  showNotifications: boolean = false;
+
   @ViewChild('listGroup') listGroup!: ElementRef;
 
   @HostListener('document:click', ['$event'])
@@ -26,6 +28,7 @@ export class MenuComponent implements OnInit{
 
       if (!isClickedInside) {
         this.showList = false;
+        this.showNotifications = false;
       }
     }
   }

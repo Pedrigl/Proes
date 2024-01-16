@@ -22,7 +22,20 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 position-relative">
         <div class="position-relative d-inline-block">
 
-          <i class="bi bi-envelope me-4"></i>
+          <i (click)="showNotifications = !showNotifications" class="bi bi-envelope me-4"></i>
+          <ul #listGroup class="list-group mt-2 position-absolute" *ngIf="showNotifications">
+            <li class="list-group-item">
+              <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                  <img src="../../assets/images/DefaultPFP.png" alt="Button Image" class="img-fluid rounded-circle mb-2" style="max-width: 40px; max-height: 40px;" />
+                </div>
+                <div class="flex-grow-1 ms-3">
+                  <div class="fw-bold">Notification Title</div>
+                  <div class="fw-light">Notification Body</div>
+                </div>
+              </div>
+            </li>
+          </ul>
 
           <img (click)="showList = !showList; stopClickPropagation($event)" src="../../assets/images/DefaultPFP.png" alt="Button Image" class="img-fluid rounded-circle mb-2" style="max-width: 40px; max-height: 40px;" />
 

@@ -38,8 +38,7 @@ export class AuthorizedHttpClientService {
     let headers = this.addHeaders([
       { key: 'Authorization', value: `Bearer ${token}` }
     ]);
-
-
+    
     return this.client.get<T>(this.envUrl.urlAddress + url, {
       headers: headers
     });
