@@ -59,11 +59,14 @@ namespace ProesBack
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddDbContext<ProesContext>( options =>
-            options.UseSqlServer(Configuration.GetConnectionString("ProesCloud")));
+            services.AddDbContextPool<ProesContext>( options =>
+            options.UseSqlServer(Configuration.GetConnectionString("Proes")));
 
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c=>
+            {
+                c.EnableAnnotations();
+            });
             
         }
 

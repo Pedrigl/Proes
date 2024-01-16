@@ -1,7 +1,10 @@
-﻿namespace ProesBack.Domain.Entities
+﻿using Swashbuckle.AspNetCore.Annotations;
+
+namespace ProesBack.Domain.Entities
 {
     public class BaseModel
     {
-        public virtual int Id { get; set; }
+        [SwaggerSchema(ReadOnly = true)]
+        public virtual long Id { get; set; }
     }
 }

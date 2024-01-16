@@ -24,7 +24,10 @@ namespace ProesBack.Controllers
         {
             try
             {
-                var user = _loginViewModelService.GetLogin(username, password) ;
+                var user = _loginViewModelService.GetLogin(username, password);
+                if (user == null)
+                    return BadRequest("Username or password is incorrect");
+
                 var token = _loginViewModelService.Authenticate(user);
 
                 _loginViewModelService.UpdateLogin(new Login{
@@ -38,15 +41,13 @@ namespace ProesBack.Controllers
 
                 
                 if (token == null)
-                    return BadRequest("Username or password is incorrect");
+                    return BadRequest("Failed to authenticate");
 
-                user.Password = "";
                 return user;
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
-                throw;
             }
         }
 
@@ -67,7 +68,7 @@ namespace ProesBack.Controllers
         }
 
         [HttpPost("Register")]
-        public IActionResult Register([FromBody] Login login)
+        public async Task<IActionResult> Register([FromBody] Login login)
         {
             try
             {
@@ -81,20 +82,40 @@ namespace ProesBack.Controllers
                     {
                         Username = login.Username,
                         Password = login.Password,
+                        UserType = login.UserType,
                         TokenExpiration = 3,
                         Token = Encoding.ASCII.GetBytes(Settings.GetKey()).ToString()
                 });
 
-                    return CreatedAtAction(null, null);
+                    return CreatedAtAction("Registered", null);
                 }
+            }
+            catch (Exception ex)
+            {
+                StatusCode(500, ex);
+                throw;
+            }
+            return BadRequest(login.Username+ " already exists");
+            
+        }
+
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var login = _loginViewModelService.GetLogin(id);
+                if (login == null)
+                    return NotFound();
+
+                _loginViewModelService.DeleteLogin(id);
+                return Ok();
             }
             catch (Exception ex)
             {
                 StatusCode(500, ex.Message);
                 throw;
             }
-            return BadRequest(login.Username+ " already exists");
-            
         }
     }
 }

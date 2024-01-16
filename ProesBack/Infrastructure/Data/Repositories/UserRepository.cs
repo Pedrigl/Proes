@@ -13,7 +13,7 @@ namespace ProesBack.Infrastructure.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public User GetByLoginId(int loginId)
+        public User GetByLoginId(long loginId)
         {
             return _dbContext.Users.FirstOrDefault(x => x.loginId == loginId);
         }

@@ -7,12 +7,12 @@ namespace ProesBack.ViewModels
     {
         [Key]
         [Required(ErrorMessage = "O campo ID é obrigatório")]
-        public int Id { get; set; }
+        public int Id { get; internal set; }
 
         [Display(Name ="Usuario")]
         [Required(ErrorMessage = "O campo Usuario é obrigatório")]
         [MaxLength(50, ErrorMessage = "O campo Usuario deve ter no máximo 50 caracteres")]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         [Display(Name = "Senha")]
         [Required(ErrorMessage = "O campo Senha é obrigatório")]

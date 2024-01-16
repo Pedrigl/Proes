@@ -34,7 +34,7 @@ namespace ProesBack.Controllers
         }
 
         [HttpGet("GetByUserId")]
-        public async Task<User> GetByUserId(int userId)
+        public async Task<User> GetByUserId(long userId)
         {
             try
             {

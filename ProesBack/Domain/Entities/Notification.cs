@@ -9,8 +9,6 @@ namespace ProesBack.Domain.Entities
         public int SenderId { get; set; }
         public DateTime Date { get; set; }
         public NotificationType Type { get; set; }
-        
-        //TODO: CRIAR SUA TABELA NO BANCO DE DADOS
 
     }
 }

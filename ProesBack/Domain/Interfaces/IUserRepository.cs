@@ -4,11 +4,11 @@ namespace ProesBack.Domain.Interfaces
 {
     public interface IUserRepository
     {
-        User GetByLoginId(int id);
-        User Get(int userId);
+        User GetByLoginId(long id);
+        User Get(long userId);
         void Insert(User user);
         void Update(User user);
-        void Delete(int id);
+        void Delete(long id);
         void Save();
     }
 }

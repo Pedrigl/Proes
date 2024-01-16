@@ -17,12 +17,12 @@ namespace ProesBack.Services
             _mapper = mapper;
         }
 
-        public User GetUserByLoginId(int loginId)
+        public User GetUserByLoginId(long loginId)
         {
             return _userRepository.GetByLoginId(loginId);
         }
 
-        public User GetByUserId(int id)
+        public User GetByUserId(long id)
         {
             return _userRepository.Get(id);
         }
@@ -33,7 +33,7 @@ namespace ProesBack.Services
             _userRepository.Save();
         }
 
-        public void DeleteUser(int id)
+        public void DeleteUser(long id)
         {
             _userRepository.Delete(id);
             _userRepository.Save();

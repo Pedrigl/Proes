@@ -12,13 +12,13 @@ namespace ProesBack.Infrastructure.Data.Common
             _dbContext = dbContext;
         }
 
-        public void Delete(int id)
+        public void Delete(long id)
         {
             var entity = Get(id);
             _dbContext.Set<T>().Remove(entity);
         }
 
-        public T Get(int id)
+        public T Get(long id)
         {
             var keyValues = new object[] { id };
             return _dbContext.Set<T>().Find(keyValues);
