@@ -35,7 +35,7 @@ namespace ProesBack.Controllers
                     Username = user.Username,
                     Password = user.Password,
                     Token = token,
-                    TokenExpiration = 30,
+                    TokenExpiration = DateTime.Now.AddMinutes(30),
                     UserType = user.UserType
                 });
 
@@ -82,9 +82,7 @@ namespace ProesBack.Controllers
                     {
                         Username = login.Username,
                         Password = login.Password,
-                        UserType = login.UserType,
-                        TokenExpiration = 3,
-                        Token = Encoding.ASCII.GetBytes(Settings.GetKey()).ToString()
+                        UserType = login.UserType
                 });
 
                     return CreatedAtAction("Registered", null);

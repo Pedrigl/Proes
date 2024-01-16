@@ -13,7 +13,7 @@ namespace ProesBack.Domain.Entities
         public string? Token { get; set; }
 
         [SwaggerSchema(ReadOnly = true)]
-        public int? TokenExpiration { get; set; }
+        public DateTime TokenExpiration { get; set; }
 
         public UserType UserType { get; set; }
     }

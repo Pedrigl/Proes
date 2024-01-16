@@ -89,7 +89,7 @@ namespace ProesBack.Services
 
             login.Token = GenerateJSONWebToken(login);
 
-            login.TokenExpiration = (int)DateTime.Now.AddMinutes(30).Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            login.TokenExpiration = DateTime.Now.AddMinutes(30);
             _loginRepository.Save();
 
             return login.Token;
