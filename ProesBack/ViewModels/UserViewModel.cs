@@ -7,7 +7,7 @@ namespace ProesBack.ViewModels
     {
         [Key]
         [Required(ErrorMessage = "O campo UserId é obrigatório")]
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
         [Display(Name = "NomeDeUsuario")]
         [Required(ErrorMessage = "O campo UserName é obrigatório")]
