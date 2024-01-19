@@ -41,13 +41,13 @@ namespace ProesBack.Infrastructure.Data.Migrations
                 name: "Notifications",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Message = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     IsRead = table.Column<bool>(type: "bit", nullable: false),
-                    SenderId = table.Column<int>(type: "int", nullable: false),
+                    SenderId = table.Column<long>(type: "bigint", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false)
+                    Type = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {

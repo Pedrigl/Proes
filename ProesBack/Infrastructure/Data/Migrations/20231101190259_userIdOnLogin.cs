@@ -13,7 +13,7 @@ namespace ProesBack.Infrastructure.Data.Migrations
             migrationBuilder.AddColumn<int>(
                                 name: "UserId",
                                 table: "Login",
-                                type: "int",
+                                type: "bigint",
                                 nullable: true,
                                 defaultValue: 0);
         }
