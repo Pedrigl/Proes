@@ -1,4 +1,5 @@
 ﻿using ProesBack.Domain.Entities;
+using ProesBack.ViewModels;
 
 namespace ProesBack.Interfaces
 {
@@ -6,11 +7,11 @@ namespace ProesBack.Interfaces
     {
         string RefreshJSONWebToken(string token);
         string GetKey(int id);
-        Login GetLogin(int id);
+        LoginViewModel GetLogin(long id);
         Login GetLogin(string username, string password);
         string Authenticate(Login login);
         void InsertLogin(Login login);
         void UpdateLogin(Login login);
-        void DeleteLogin(int id);
+        void DeleteLogin(long id);
     }
 }

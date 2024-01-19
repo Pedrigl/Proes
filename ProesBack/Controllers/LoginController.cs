@@ -43,7 +43,7 @@ namespace ProesBack.Controllers
                 if (token == null)
                     return BadRequest("Failed to authenticate");
 
-                return user;
+                return _loginViewModelService.GetLogin(user.Id);
             }
             catch (Exception ex)
             {
@@ -85,7 +85,7 @@ namespace ProesBack.Controllers
                         UserType = login.UserType
                 });
 
-                    return CreatedAtAction("Registered", null);
+                    return StatusCode(StatusCodes.Status201Created);
                 }
             }
             catch (Exception ex)

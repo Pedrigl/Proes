@@ -5,6 +5,7 @@ using ProesBack.Domain.Entities;
 using ProesBack.Domain.Interfaces;
 using ProesBack.Infrastructure.Data.Common;
 using ProesBack.Interfaces;
+using ProesBack.ViewModels;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -102,9 +103,11 @@ namespace ProesBack.Services
             return key;
         }
 
-        public Login GetLogin(int id)
+        public LoginViewModel GetLogin(long id)
         {
-            return _loginRepository.Get(id);
+            var login = _loginRepository.Get(id);
+            var loginViewModel = _mapper.Map<LoginViewModel>(login);
+            return loginViewModel;
         }
         public Login GetLogin(string username, string password)
         {
@@ -122,7 +125,7 @@ namespace ProesBack.Services
             _loginRepository.Save();
         }
 
-        public void DeleteLogin(int id)
+        public void DeleteLogin(long id)
         {
             _loginRepository.Delete(id);
             _loginRepository.Save();
