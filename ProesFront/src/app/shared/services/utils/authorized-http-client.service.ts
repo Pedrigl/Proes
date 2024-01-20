@@ -32,14 +32,14 @@ export class AuthorizedHttpClientService {
   }
 
   get<T>(url: string): Observable<T> {
-
+    
     let token = this.getAuthToken();
 
     let headers = this.addHeaders([
       { key: 'Authorization', value: `Bearer ${token}` }
     ]);
     
-    return this.client.get<T>(this.envUrl.urlAddress + url, {
+    return this.client.get<T>(url, {
       headers: headers
     });
   }
@@ -52,7 +52,7 @@ export class AuthorizedHttpClientService {
       { key: 'Authorization', value: `Bearer ${token}` }
     ]);
 
-    return this.client.post<T>(this.envUrl.urlAddress + url, data, {
+    return this.client.post<T>(url, data, {
       headers: headers
     });
   }
