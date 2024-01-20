@@ -18,6 +18,6 @@ export class LoginRepositoryService {
   }
 
   public register = (login: Login) => {
-    return this.http.post<LoginResponse>(this.envUrl.urlAddress + "/api/Login/Register", login);
+    return this.http.post<Login>(this.envUrl.urlAddress + "/api/Login/Register", login);
   }
 }

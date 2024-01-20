@@ -60,6 +60,7 @@ export class LoginPageComponent implements OnInit{
       .subscribe(res => {
         this.login.username = res.username;
         this.login.password = res.password;
+        this.login.userType = res.userType;
         this.loginSubmit();
       },
         error => {
@@ -71,23 +72,14 @@ export class LoginPageComponent implements OnInit{
 
   private checkForUser(loginId: number): void {
 
-    //this.userRepository.getUserByLoginId(loginId)
-    //  .subscribe(res => {
-    //    this.userExists = res.id != null;
-    //  },
-    //    (err: HttpErrorResponse) => {
-    //      console.log(err.message);
-    //    });
-
     this.userRepository.getUserByLoginId(loginId)
-      .subscribe({
-        next: res => {
-          this.userExists = res.id != null;
-        },
-        error: (error: HttpErrorResponse) => {
-          console.log(error.message);
-        }
-      });
+     .subscribe(res => {
+       this.userExists = res.id != null;
+     },
+       (err: HttpErrorResponse) => {
+         console.log(err.message);
+       });
+
   }
 
   ngOnInit(): void {
