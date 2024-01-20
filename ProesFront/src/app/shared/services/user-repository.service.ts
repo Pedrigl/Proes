@@ -17,9 +17,7 @@ export class UserRepositoryService {
   }
 
   public getUserByLoginId = (loginId: number) => {
-    let url = this.envUrl.urlAddress + `/api/User/GetByLoginId?loginId=${loginId}`;
-    console.log(url);
-    return this.httpClient.get<UserModel>(url);
+    return this.httpClient.get<UserModel>(this.envUrl.urlAddress + `/api/User/GetByLoginId?loginId=${loginId}`);
   }
 
   public getUserById = (id: number) => {
