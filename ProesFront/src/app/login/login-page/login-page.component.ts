@@ -24,8 +24,8 @@ export class LoginPageComponent implements OnInit{
 
   login: Login = {
     username: "",
-    password: ""
-
+    password: "",
+    userType: 0
   };
 
   public registerModeToggle() {
@@ -33,55 +33,68 @@ export class LoginPageComponent implements OnInit{
   }
 
   public async loginSubmit() {
-
     this.loginRepository.login(this.login)
-      .subscribe(res => {
-        localStorage.setItem('token', res.token);
-        
-        this.checkForUser(res.id);
+    .subscribe({
+        next: async res => {
+            
+            this.saveToken(res.token, res.tokenExpiration);
 
-        if (this.userExists) {
-          this.router.navigate(['/home']);
-        }
+            await this.checkForUser(res.id);
 
-        else {
-          this.router.navigate(['/user']);
+            if (this.userExists) {
+                console.log("User exists, navigating to /home");
+                this.router.navigate(['/home']);
+            } 
+            
+            else {
+                console.log("User does not exist, navigating to /user");
+                this.router.navigate(['/user']);
+            }
+            
+        },
+        error: err => {
+            console.log(err);
+            this.loginError = true;
         }
-      },
-        error => {
-          console.log(error);
-          this.loginError = true;
-        });
+    });
   }
 
   public registerSubmit() {
-
     this.loginRepository.register(this.login)
-      .subscribe(res => {
-        this.login.username = res.username;
-        this.login.password = res.password;
-        this.login.userType = res.userType;
-        this.loginSubmit();
-      },
-        error => {
-          this.registerErrorMessage = error;
-          this.registerError = true;
-          console.log(error)
-        });
+    .subscribe({
+        next: res => {
+            this.login.username = res.username;
+            this.login.password = res.password;
+            this.login.userType = res.userType;
+            this.loginSubmit();
+        },
+        error: err => {
+            console.log(err);
+        }
+    });
   }
-
-  private checkForUser(loginId: number): void {
-
-    this.userRepository.getUserByLoginId(loginId)
-     .subscribe(res => {
-       this.userExists = res.id != null;
-     },
-       (err: HttpErrorResponse) => {
-         console.log(err.message);
+  
+  private async checkForUser(loginId: number): Promise<void> {
+    
+       this.userRepository.getUserByLoginId(loginId)
+       .subscribe({
+            next: res => {
+            this.userExists = res.id > 0;
+            console.log("User exists: " + this.userExists);
+            },
+            error: (err: HttpErrorResponse) => {
+            console.log(err);
+            }
        });
-
   }
 
+  public saveToken(token: string, tokenExpiration: Date) {
+    localStorage.removeItem('token');
+    localStorage.setItem('token', token);
+    localStorage.removeItem('tokenExpiration');
+    localStorage.setItem('tokenExpiration', tokenExpiration.toString());
+  }
+  
   ngOnInit(): void {
       localStorage.removeItem('token');
   }

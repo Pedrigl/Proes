@@ -11,8 +11,10 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean | UrlTree {
-
-    this.isAuthenticated = localStorage.getItem('token') != null;
+        
+    var token = localStorage.getItem('token');
+    var tokenExpiration = localStorage.getItem('tokenExpiration');
+    this.isAuthenticated = token != null && tokenExpiration != null && Date.now() < Date.parse(tokenExpiration);
 
     if (this.isAuthenticated) {
       return true;
