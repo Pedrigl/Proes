@@ -14,17 +14,16 @@ export class UserPageComponent {
   user!: UserModel
 
   async createUser() {
-    
     this.userRepository.createUser(this.user)
-      .subscribe(res => {
-        this.user = res;
-
-        this.router.navigateByUrl('/home');
-      },
-        err => {
-          console.log(err);
-        })
-
+    .subscribe({
+        next: res => {
+            this.user = res;
+            this.router.navigateByUrl('/home');
+        },
+        error: err => {
+            console.log(err);
+        }
+    })
   }
   
 }
