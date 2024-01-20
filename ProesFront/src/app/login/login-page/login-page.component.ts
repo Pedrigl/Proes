@@ -8,7 +8,8 @@ import {MenuComponent} from '../../menu/menu.component';
 import { UserRepositoryService } from '../../shared/services/repositories/user-repository.service';
 import { UserModel } from 'src/app/Interfaces/user.model';
 import { UserDataService } from 'src/app/shared/services/user-data.service';
-
+import { first } from 'rxjs/operators';
+import { lastValueFrom } from 'rxjs';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -39,59 +40,59 @@ export class LoginPageComponent implements OnInit{
   }
 
   public async loginSubmit() {
-    this.loginRepository.login(this.login)
-    .subscribe({
-        next: async res => {
-            
-            this.saveToken(res.token, res.tokenExpiration);
+    try{
+        const res = this.loginRepository.login(this.login);
+        const login = await lastValueFrom(res);
+        
+        this.saveToken(login.token, login.tokenExpiration);
 
-            await this.checkForUser(res.id);
+        await this.checkForUser(login.id);
 
-            if (this.userExists) {
-                console.log("User exists, navigating to /home");
-                this.router.navigate(['/home']);
-            } 
-            
-            else {
-                console.log("User does not exist, navigating to /user");
-                this.router.navigate(['/user']);
-            }
-            
-        },
-        error: err => {
-            console.log(err);
-            this.loginError = true;
+        if (this.userExists) {
+            console.log("User exists, navigating to /home");
+            this.router.navigate(['/home']);
+        } 
+        
+        else {
+            console.log("User does not exist, navigating to /user");
+            this.router.navigate(['/user']);
         }
-    });
+    }
+
+    catch(err){
+        console.log(err);
+        this.loginError = true;
+    }
   }
 
-  public registerSubmit() {
-    this.loginRepository.register(this.login)
-    .subscribe({
-        next: res => {
-            this.login.username = res.username;
-            this.login.password = res.password;
-            this.login.userType = res.userType;
-            this.loginSubmit();
-        },
-        error: err => {
-            console.log(err);
-        }
-    });
+  public async registerSubmit() {
+    try{
+        const res = this.loginRepository.register(this.login);
+        const login = await lastValueFrom(res);
+        this.login.username = login.username;
+        this.login.password = login.password;
+        this.login.userType = login.userType;
+        this.loginSubmit();
+    }
+    
+    catch(err){
+        console.log(err);
+        this.registerError = true;
+    }
   }
   
   private async checkForUser(loginId: number): Promise<void> {
     
-       this.userRepository.getUserByLoginId(loginId)
-       .subscribe({
-            next: res => {
-            this.userExists = res.id > 0;
-            this.userDataService.setUser(res);
-            },
-            error: (err: HttpErrorResponse) => {
-            console.log(err);
-            }
-       });
+    try{
+        const res = await this.userRepository.getUserByLoginId(loginId);
+        const user = await lastValueFrom(res);
+        this.userExists = user.id > 0;
+        this.userDataService.setUser(user);
+    }
+
+    catch(err){
+        console.log(err);
+    }
   }
 
   public saveToken(token: string, tokenExpiration: Date) {

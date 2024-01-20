@@ -3,6 +3,7 @@ import { UserRepositoryService } from '../../shared/services/repositories/user-r
 import { UserModel } from '../../Interfaces/user.model';
 import { Router } from '@angular/router';
 import { UserDataService } from 'src/app/shared/services/user-data.service';
+import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
 
 @Component({
   selector: 'app-user-page',
@@ -16,12 +17,22 @@ export class UserPageComponent implements OnInit{
     private router: Router) {
   }
   
-    user!: UserModel
+    user: UserModel = {
+        id: 0,
+        name: "",
+        birthDate: new Date(),
+        email: "",
+        loginId: 0,
+        pictureUrl: ""
+    };
+    
 
     ngOnInit() {
+        
         this.userDataService.user$.subscribe({
             next: res => {
 
+                console.log("user page: " + res?.name);
                 if(res !== null){
                     this.user = res;
                 }
@@ -30,31 +41,17 @@ export class UserPageComponent implements OnInit{
         })
     }
 
-
-    async getUserByLoginId() {
-        this.userRepository.getUserByLoginId(this.user.loginId)
-        .subscribe({
-            next: res => {
-                this.user = res;
-                this.router.navigateByUrl('/home');
-            },
-            error: err => {
-                console.log(err);
-            }
-        })
-    }
-
     async createUser() {
-        this.userRepository.createUser(this.user)
-        .subscribe({
-            next: res => {
-                this.user = res;
-                this.router.navigateByUrl('/home');
-            },
-            error: err => {
-                console.log(err);
-            }
-        })
+        try{
+            const res = this.userRepository.createUser(this.user);
+            const user = await lastValueFrom(res);
+            this.user = user;
+            this.userDataService.setUser(user);
+            this.router.navigateByUrl('/home');
+        }
+        catch(err){
+            console.log(err);
+        }
     }
   
 }

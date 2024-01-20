@@ -7,6 +7,7 @@ import { UserModel } from 'src/app/Interfaces/user.model';
 })
 export class UserDataService {
     private userSubject = new BehaviorSubject<UserModel | null>(null);  
+
     user$ = this.userSubject.asObservable();
 
     public setUser(user: UserModel) {
