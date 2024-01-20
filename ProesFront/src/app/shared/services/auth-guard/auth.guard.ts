@@ -6,10 +6,13 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 })
 export class AuthGuard implements CanActivate {
   router: Router = new Router();
-  isAuthenticated = !!localStorage.getItem('token');
+  isAuthenticated:boolean = false;
+    
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean | UrlTree {
+
+    this.isAuthenticated = localStorage.getItem('token') != null;
 
     if (this.isAuthenticated) {
       return true;
