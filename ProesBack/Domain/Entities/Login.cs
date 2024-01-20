@@ -5,6 +5,8 @@ namespace ProesBack.Domain.Entities
 {
     public class Login : BaseModel
     {
+        public long UserId { get; set; }
+
         public string Username { get; set; }
 
         public string Password { get; set; }
