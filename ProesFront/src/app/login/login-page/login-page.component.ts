@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Login, LoginResponse } from '../../Interfaces/login.model';
-import { LoginRepositoryService } from '../../shared/services/login-repository.service';
+import { LoginRepositoryService } from '../../shared/services/repositories/login-repository.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {MenuComponent} from '../../menu/menu.component'; 
-import { UserRepositoryService } from '../../shared/services/user-repository.service';
+import { UserRepositoryService } from '../../shared/services/repositories/user-repository.service';
+import { UserModel } from 'src/app/Interfaces/user.model';
+import { UserDataService } from 'src/app/shared/services/user-data.service';
 
 @Component({
   selector: 'app-login-page',
@@ -13,7 +15,11 @@ import { UserRepositoryService } from '../../shared/services/user-repository.ser
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit{
-  constructor(private router:Router, private loginRepository: LoginRepositoryService, private userRepository: UserRepositoryService) {
+  constructor(
+    private router:Router, 
+    private loginRepository: LoginRepositoryService, 
+    private userRepository: UserRepositoryService,
+    private userDataService: UserDataService) {
   }
 
   loginError: boolean = false;
@@ -80,7 +86,7 @@ export class LoginPageComponent implements OnInit{
        .subscribe({
             next: res => {
             this.userExists = res.id > 0;
-            console.log("User exists: " + this.userExists);
+            this.userDataService.setUser(res);
             },
             error: (err: HttpErrorResponse) => {
             console.log(err);
@@ -94,7 +100,7 @@ export class LoginPageComponent implements OnInit{
     localStorage.removeItem('tokenExpiration');
     localStorage.setItem('tokenExpiration', tokenExpiration.toString());
   }
-  
+
   ngOnInit(): void {
       localStorage.removeItem('token');
   }

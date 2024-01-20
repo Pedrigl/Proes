@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserModel } from './Interfaces/user.model';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Proes';
+    user: UserModel = {
+        id: 0,
+        loginId: 0,
+        name: "",
+        email: "",
+        birthDate: new Date(),
+        pictureUrl: ""
+    }
+    title = 'Proes';
+
+    onUserChanged(user: UserModel) {
+        
+        this.user = user;
+    }
   }
 
