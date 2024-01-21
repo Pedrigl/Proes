@@ -47,7 +47,7 @@
               <a [routerLink]="['/settings']" class="apple-link ">Settings</a>
             </li>
             <li class="list-group-item p-3">
-              <a [routerLink]="['/logout']" class="apple-link ">Logout</a>
+              <a (click)="logOut()"  class="apple-link" style="cursor: pointer;">Logout</a>
             </li>
           </ul>
         </div>

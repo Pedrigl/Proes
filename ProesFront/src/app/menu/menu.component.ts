@@ -1,6 +1,7 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AuthGuard } from '../shared/services/auth-guard/auth.guard';
 import { AuthService } from '../shared/services/auth-guard/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -34,10 +35,16 @@ export class MenuComponent implements OnInit{
     }
   }
 
+  logOut() {
+    this.authService.logOut();
+    this.isVisible = false;
+    this.router.navigateByUrl('/login');
+  }
+
   stopClickPropagation(event: any) {
     event.stopPropagation();
   }
-  constructor(private authService : AuthService) { }
+  constructor(private authService : AuthService, private router : Router) { }
 
   ngOnInit(): void {
     this.isVisible = this.authService.checkAuthentication();
