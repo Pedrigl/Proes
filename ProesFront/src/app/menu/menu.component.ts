@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AuthGuard } from '../shared/services/auth-guard/auth.guard';
+import { AuthService } from '../shared/services/auth-guard/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -36,11 +37,10 @@ export class MenuComponent implements OnInit{
   stopClickPropagation(event: any) {
     event.stopPropagation();
   }
-  constructor(private authGuard : AuthGuard) { }
+  constructor(private authService : AuthService) { }
 
   ngOnInit(): void {
-    this.isVisible = this.authGuard.isAuthenticated;
-    console.log(this.isVisible);
+    this.isVisible = this.authService.checkAuthentication();
   }
 
 }
