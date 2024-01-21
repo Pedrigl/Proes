@@ -86,8 +86,12 @@ export class LoginPageComponent implements OnInit{
     try{
         const res = await this.userRepository.getUserByLoginId(loginId);
         const user = await lastValueFrom(res);
+        console.log(user);
         this.userExists = user.id > 0;
-        this.userDataService.setUser(user);
+        if(this.userExists){
+            this.userDataService.setUser(user);
+        }
+        
     }
 
     catch(err){
