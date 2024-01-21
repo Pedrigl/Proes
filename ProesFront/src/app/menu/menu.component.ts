@@ -40,6 +40,7 @@ export class MenuComponent implements OnInit{
 
   ngOnInit(): void {
     this.isVisible = this.authGuard.isAuthenticated;
+    console.log(this.isVisible);
   }
 
 }

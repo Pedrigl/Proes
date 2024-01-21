@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,18 +8,14 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 export class AuthGuard implements CanActivate {
   router: Router = new Router();
   isAuthenticated:boolean = false;
-    
+    constructor(private authService: AuthService) { }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean | UrlTree {
         
-    var token = localStorage.getItem('token');
+    this.authService.checkAuthentication();
     
-    var tokenExpiration = localStorage.getItem('tokenExpiration');
-    
-    this.isAuthenticated = ((token != null) && (tokenExpiration != null && Date.now() < Date.parse(tokenExpiration)));
-    
-    if (this.isAuthenticated) {
+    if (this.authService.isAuthenticated) {
         return true;
     } else {
         return this.router.parseUrl('/login');
