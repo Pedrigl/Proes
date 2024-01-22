@@ -51,7 +51,7 @@ namespace ProesBack.Services.Tests
         public void UpdateUserShouldUpdateUser()
         {
             //Arrange
-            _userRepositoryMock.Setup(x => x.Update(_testUser));
+            _userRepositoryMock.Setup(x => x.Update(_testUser.Id,_testUser));
 
             //Act
             _testUserService.UpdateUser(_testUser);
