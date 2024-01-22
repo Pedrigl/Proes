@@ -47,7 +47,14 @@ export class MenuComponent implements OnInit{
   constructor(private authService : AuthService, private router : Router) { }
 
   ngOnInit(): void {
-    this.isVisible = this.authService.checkAuthentication();
+    this.authService.authStatus$.subscribe({
+        next: res => {
+            this.isVisible = res;
+        },
+        error: err => {
+            console.log(err);
+        }
+    });
   }
 
 }

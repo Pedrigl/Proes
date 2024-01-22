@@ -19,9 +19,13 @@ export class AuthService {
         return this.isAuthenticated;
     }
 
+    setAuthenticationStatus(status: boolean) {
+        this.authStatusSource.next(status);
+    }
     logOut() {
         localStorage.removeItem('token');
         localStorage.removeItem('tokenExpiration');
+        localStorage.removeItem('user');
         this.isAuthenticated = false;
     }
 

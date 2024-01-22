@@ -10,6 +10,7 @@ import { UserModel } from 'src/app/Interfaces/user.model';
 import { UserDataService } from 'src/app/shared/services/user-data.service';
 import { first } from 'rxjs/operators';
 import { lastValueFrom } from 'rxjs';
+import { AuthService } from 'src/app/shared/services/auth-guard/auth.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -20,7 +21,8 @@ export class LoginPageComponent implements OnInit{
     private router:Router, 
     private loginRepository: LoginRepositoryService, 
     private userRepository: UserRepositoryService,
-    private userDataService: UserDataService) {
+    private userDataService: UserDataService,
+    private authService: AuthService) {
   }
 
   loginError: boolean = false;
@@ -45,7 +47,7 @@ export class LoginPageComponent implements OnInit{
         const login = await lastValueFrom(res);
         
         this.saveToken(login.token, login.tokenExpiration);
-
+        this.authService.setAuthenticationStatus(true);
         await this.checkForUser(login.id);
 
         if (this.userExists) {
@@ -86,7 +88,7 @@ export class LoginPageComponent implements OnInit{
     try{
         const res = await this.userRepository.getUserByLoginId(loginId);
         const user = await lastValueFrom(res);
-        console.log(user);
+        
         this.userExists = user.id > 0;
         if(this.userExists){
             this.userDataService.setUser(user);
