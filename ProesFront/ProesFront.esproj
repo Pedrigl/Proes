@@ -13,4 +13,7 @@
   <ItemGroup>
     <Folder Include="src\environments\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\Interfaces\user.model.ts" />
+  </ItemGroup>
 </Project>
