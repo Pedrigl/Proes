@@ -48,6 +48,7 @@ export class LoginPageComponent implements OnInit{
         
         this.saveToken(login.token, login.tokenExpiration);
         this.authService.setAuthenticationStatus(true);
+        this.saveLogin(login);
         await this.checkForUser(login.id);
 
         if (this.userExists) {
@@ -106,6 +107,11 @@ export class LoginPageComponent implements OnInit{
     localStorage.setItem('token', token);
     localStorage.removeItem('tokenExpiration');
     localStorage.setItem('tokenExpiration', tokenExpiration.toString());
+  }
+
+  public saveLogin(login: LoginResponse) {
+    localStorage.removeItem('login');
+    localStorage.setItem('login', JSON.stringify(login));
   }
 
   ngOnInit(): void {

@@ -14,6 +14,7 @@ import { AlertModule, AlertConfig } from 'ngx-bootstrap/alert';
 import { JwtModule } from '@auth0/angular-jwt';
 import { UserPageComponent } from './login/user-page/user-page.component';
 import { UserDataService } from './shared/services/user-data.service';
+import { LoginDataService } from './shared/services/login-data.service';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -45,7 +46,7 @@ export interface user {
     AlertModule,
     CollapseModule.forRoot()
   ],
-  providers: [AlertConfig, UserDataService],
+  providers: [AlertConfig, UserDataService, LoginDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
