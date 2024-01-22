@@ -15,7 +15,7 @@
         <label class="form-label">Password</label>
         <input type="password" [(ngModel)]="login.password" name="password" class="form-control" />
       </div>
-      <alert type="danger" *ngIf="loginError">Email ou Senha incorretos</alert>
+      <alert type="danger" *ngIf="loginError">{{loginErrorMessage}}</alert>
       <div class="row mb-4">
         <div class="col">
           <!-- Simple link -->
@@ -38,6 +38,7 @@
         <label class="form-label">Password</label>
         <input type="password" [(ngModel)]="login.password" name="password" class="form-control" />
       </div>
+      <alert type="danger" *ngIf="registerError">{{registerErrorMessage}}</alert>
 
       <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
     </form>

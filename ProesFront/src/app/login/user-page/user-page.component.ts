@@ -29,7 +29,8 @@ export class UserPageComponent implements OnInit{
         loginId: 0,
         pictureUrl: ""
     };
-    
+    registerUserError: boolean = false;
+    registerUserErrorMessage!: string;
 
     ngOnInit() {
         this.loginDataService.login$.subscribe({
@@ -69,7 +70,9 @@ export class UserPageComponent implements OnInit{
             this.userDataService.setUser(user);
             this.router.navigateByUrl('/home');
         }
-        catch(err){
+        catch(err: any){
+            this.registerUserError = true;
+            this.registerUserErrorMessage = err.error;
             console.log(err);
         }
     }

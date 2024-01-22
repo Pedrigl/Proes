@@ -26,6 +26,7 @@ export class LoginPageComponent implements OnInit{
   }
 
   loginError: boolean = false;
+  loginErrorMessage!: string;
   registerError: boolean = false;
   registerMode: boolean = false;
   registerErrorMessage!: string;
@@ -61,9 +62,10 @@ export class LoginPageComponent implements OnInit{
         }
     }
 
-    catch(err){
+    catch(err : any){
         console.log(err);
         this.loginError = true;
+        this.loginErrorMessage = err.error;
     }
   }
 
@@ -77,9 +79,11 @@ export class LoginPageComponent implements OnInit{
         this.loginSubmit();
     }
     
-    catch(err){
+    catch(err : any){
+
         console.log(err);
         this.registerError = true;
+        this.registerErrorMessage = err.error;
     }
   }
   

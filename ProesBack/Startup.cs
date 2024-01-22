@@ -58,10 +58,12 @@ namespace ProesBack
             services.AddRepositories().AddServices();
 
             services.AddAutoMapper(typeof(Startup));
-
-            services.AddDbContextPool<ProesContext>( options =>
-            options.UseSqlServer(Configuration.GetConnectionString("Proes")));
-
+            services.AddDbContext<ProesContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("Proes"),actions => { actions.EnableRetryOnFailure(); });
+            }, ServiceLifetime.Transient);
+            
+            
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(c=>
             {
