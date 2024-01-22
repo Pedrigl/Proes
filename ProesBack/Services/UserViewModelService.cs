@@ -9,7 +9,7 @@ namespace ProesBack.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        
+        private readonly ILoginRepository _loginRepository;
 
         public UserViewModelService(IUserRepository userRepository, IMapper mapper)
         {
@@ -29,7 +29,7 @@ namespace ProesBack.Services
 
         public void UpdateUser(User user)
         {
-            _userRepository.Update(user);
+            _userRepository.Update(user.Id, user);
             _userRepository.Save();
         }
 
@@ -41,7 +41,7 @@ namespace ProesBack.Services
 
         public void InsertUser(User user)
         {
-            _userRepository.Insert(user);
+            _userRepository.Insert(user);   
             _userRepository.Save();
         }
 

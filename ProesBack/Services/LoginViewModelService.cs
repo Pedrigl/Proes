@@ -121,7 +121,7 @@ namespace ProesBack.Services
 
         public void UpdateLogin(Login login)
         {
-            _loginRepository.Update(login);
+            _loginRepository.Update(login.Id,login);
             _loginRepository.Save();
         }
 

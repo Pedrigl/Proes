@@ -61,6 +61,13 @@ namespace ProesBack.Controllers
                     return BadRequest("User already exists");
 
                 _userViewModelService.InsertUser(user);
+
+                _loginViewModelService.UpdateLogin(new Login
+                {
+                    Id = user.loginId,
+                    UserId = user.Id,
+                });
+
                 return Ok(user);
             }
             catch (Exception ex)

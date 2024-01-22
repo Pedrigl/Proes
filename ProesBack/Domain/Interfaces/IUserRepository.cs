@@ -7,7 +7,7 @@ namespace ProesBack.Domain.Interfaces
         User GetByLoginId(long id);
         User Get(long userId);
         void Insert(User user);
-        void Update(User user);
+        void Update(long entityId, User user);
         void Delete(long id);
         void Save();
     }

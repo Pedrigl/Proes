@@ -34,9 +34,9 @@ namespace ProesBack.Infrastructure.Data.Common
             _dbContext.Set<T>().AddAsync(entity);
         }
 
-        public void Update(T entity)
+        public void Update(long entityId,T entity)
         {
-            var record = Get(entity.Id);
+            var record = Get(entityId);
             _dbContext.Entry(record).CurrentValues.SetValues(entity);
         }
 

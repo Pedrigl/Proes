@@ -7,7 +7,7 @@ namespace ProesBack.Domain.Interfaces
         IEnumerable<Notification> GetAll();
         Notification Get(long id);
         void Insert(Notification notification);
-        void Update(Notification notification);
+        void Update(long entityId, Notification notification);
         void Delete(long id);
         void Save();
     }

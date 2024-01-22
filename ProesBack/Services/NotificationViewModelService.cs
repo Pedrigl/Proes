@@ -45,7 +45,7 @@ namespace ProesBack.Services
         public void UpdateNotification(NotificationViewModel notificationViewModel)
         {
             var notification = _mapper.Map<Notification>(notificationViewModel);
-            _notificationRepository.Update(notification);
+            _notificationRepository.Update(notification.Id,notification);
             _notificationRepository.Save();
         }
     }
