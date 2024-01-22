@@ -14,12 +14,13 @@ export class MenuComponent implements OnInit{
   showList: boolean = false;
   showNotifications: boolean = false;
 
-  @ViewChild('listGroup') listGroup!: ElementRef;
+  @ViewChild('listGroup') 
+  listGroup!: ElementRef;
 
   @HostListener('document:click', ['$event'])
-  clickout(event: any) {
-    
-    if (this.isVisible && !event.target.closest('.list-group')) {
+clickout(event: any) {
+  if (this.isVisible && !event.target.closest('.list-group')) {
+    if (this.listGroup && this.listGroup.nativeElement) {
       const rect = this.listGroup.nativeElement.getBoundingClientRect();
       const isClickedInside = (
         rect.top <= event.clientY &&
@@ -34,6 +35,7 @@ export class MenuComponent implements OnInit{
       }
     }
   }
+}
 
   logOut() {
     this.authService.logOut();

@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center flex-column mt-3">
   <h1>Finish your register</h1>
   <div class="justify-content-center align-items-center">
-    <form>
+    <form (ngSubmit)="createUser()">
       <div class="form-outline mb-4">
         <label class="form-label">Email</label>
         <input type="email" name="Email" class="form-control" [(ngModel)]="user.email" />
@@ -19,7 +19,7 @@
 
       <div class="form-outline mb-4">
         <label class="form-label">Profile picture</label>
-        <input type="file" name="Profile picture" class="form-control" />
+        <input type="file" name="Profile picture" class="form-control"/>
       </div>
 
       <div>

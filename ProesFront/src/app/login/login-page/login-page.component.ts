@@ -50,7 +50,6 @@ export class LoginPageComponent implements OnInit{
         this.authService.setAuthenticationStatus(true);
         this.saveLogin(login);
         await this.checkForUser(login.id);
-
         if (this.userExists) {
             console.log("User exists, navigating to /home");
             this.router.navigate(['/home']);
@@ -103,6 +102,7 @@ export class LoginPageComponent implements OnInit{
   }
 
   public saveToken(token: string, tokenExpiration: Date) {
+    console.log("Saving token");
     localStorage.removeItem('token');
     localStorage.setItem('token', token);
     localStorage.removeItem('tokenExpiration');
