@@ -102,7 +102,7 @@ export class LoginPageComponent implements OnInit{
   }
 
   public saveToken(token: string, tokenExpiration: Date) {
-    console.log("Saving token");
+    
     localStorage.removeItem('token');
     localStorage.setItem('token', token);
     localStorage.removeItem('tokenExpiration');
