@@ -60,7 +60,8 @@ namespace ProesBack
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<ProesContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("Proes"),actions => { actions.EnableRetryOnFailure(); });
+                options.UseSqlServer(Configuration.GetConnectionString("Proes"),
+                actions => { actions.EnableRetryOnFailure(); });
             }, ServiceLifetime.Transient);
             
             
