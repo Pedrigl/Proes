@@ -62,7 +62,6 @@ namespace ProesBack.Controllers
 
                 _userViewModelService.InsertUser(user);
 
-                //mover essa operação para o front end
                 _loginViewModelService.UpdateLogin(new Login
                 {
                     Id = user.loginId,
