@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center flex-column mt-3">
   <h1>Finish your register</h1>
   <div class="justify-content-center align-items-center">
-    <form (ngSubmit)="createUser()">
+    <form (ngSubmit)="saveUser()">
       <div class="form-outline mb-4">
         <label class="form-label">Email</label>
         <input type="email" name="Email" class="form-control" [(ngModel)]="user.email" />
@@ -14,7 +14,7 @@
 
       <div class="form-outline mb-4">
         <label class="form-label">Birth date</label>
-        <input type="date" name="Birthdate" class="form-control" [(ngModel)]="user.birthDate" />
+        <input type="datetime-local" name="Birthdate" class="form-control" [(ngModel)]="user.birthDate" />
       </div>
 
       <div class="form-outline mb-4">

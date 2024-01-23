@@ -88,7 +88,7 @@ namespace ProesBack.Controllers
                     return BadRequest("User not found");
 
                 _userViewModelService.UpdateUser(user);
-                return Ok();
+                return Ok(user);
             }
             catch (Exception ex)
             {

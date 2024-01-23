@@ -28,4 +28,11 @@ export class UserRepositoryService {
     return this.httpClient.post<UserModel>(this.envUrl.urlAddress + "/api/User/Create", user);
   }
 
+  public updateUser = (user: UserModel) => {
+    return this.httpClient.put<UserModel>(this.envUrl.urlAddress + "/api/User/Update", user);
+  }
+
+  public deleteUser = (id: number) => {
+    return this.httpClient.delete(this.envUrl.urlAddress + `/api/User/Delete?userId=${id}`);
+  }
 }

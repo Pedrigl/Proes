@@ -59,22 +59,49 @@ export class UserPageComponent implements OnInit{
             },
             error: err => console.log(err)
           });
+
+  }
+
+  async createUser() {
+    try {
+      const res = this.userRepository.createUser(this.user);
+      const user = await lastValueFrom(res);
+      this.user = user;
+      this.userDataService.setUser(user);
+      this.router.navigateByUrl('/home');
+    }
+    catch (err: any) {
+      this.registerUserError = true;
+      this.registerUserErrorMessage = err.error;
+      console.log(err);
+    }
+  }
+
+  async updateUser() {
+    try {
+      const res = this.userRepository.updateUser(this.user);
+      const user = await lastValueFrom(res);
+      this.user = user;
+      this.userDataService.setUser(user);
+      this.router.navigateByUrl('/home');
     }
 
-    async createUser() {
-        try{
-            const res = this.userRepository.createUser(this.user);
-            const user = await lastValueFrom(res);
-            this.user = user;
-            console.log(user);
-            this.userDataService.setUser(user);
-            this.router.navigateByUrl('/home');
-        }
-        catch(err: any){
-            this.registerUserError = true;
-            this.registerUserErrorMessage = err.error;
-            console.log(err);
-        }
+    catch (err: any) {
+      this.registerUserError = true;
+      this.registerUserErrorMessage = err.error;
+      console.log(err);
     }
+  }
+    async saveUser() {
+
+      if (this.user.id === 0) {
+      await this.createUser();
+    }
+    else {
+      await this.updateUser();
+    }
+
+  }
+  
   
 }
