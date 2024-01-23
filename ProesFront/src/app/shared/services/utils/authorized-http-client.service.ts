@@ -56,4 +56,45 @@ export class AuthorizedHttpClientService {
       headers: headers
     });
   }
+
+  put<T>(url: string, data: any): Observable<T> {
+
+    let token = this.getAuthToken();
+
+    let headers = this.addHeaders([
+      { key: 'Authorization', value: `Bearer ${token}` }
+    ]);
+
+    return this.client.put<T>(url, data, {
+      headers: headers
+    });
+  }
+
+  delete<T>(url: string): Observable<T> {
+
+    let token = this.getAuthToken();
+
+    let headers = this.addHeaders([
+      { key: 'Authorization', value: `Bearer ${token}` }
+    ]);
+
+    return this.client.delete<T>(url, {
+      headers: headers
+    });
+  }
+
+  patch<T>(url: string, data: any): Observable<T> {
+
+    let token = this.getAuthToken();
+
+    let headers = this.addHeaders([
+      { key: 'Authorization', value: `Bearer ${token}` }
+    ]);
+
+    return this.client.patch<T>(url, data, {
+      headers: headers
+    });
+  }
+
+
 }
