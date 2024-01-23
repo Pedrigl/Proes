@@ -34,31 +34,32 @@ export class UserPageComponent implements OnInit{
 
     ngOnInit() {
         this.loginDataService.login$.subscribe({
-            next: res => {
+          next: res => {
                 if(res !== null){
-                    this.user.loginId = res.id;
+                  this.user.loginId = res.id;
                 }
             }
         });
 
-        this.userDataService.user$.pipe(
-            switchMap(user => {
-              if (user !== null) {
-                this.user = user;
-                return this.userRepository.getUserByLoginId(this.user.loginId);
-              }
-              // If user is null, return an empty observable
-              return of(null);
-            })
-          ).subscribe({
-            next: res => {
-              if (res !== null) {
-                this.user = res;
-                this.userDataService.setUser(res);
-              }
-            },
-            error: err => console.log(err)
-          });
+        // TODO: ESSA PARTE AQUI TA SENDO REPETIDA VARIAS VEZES
+      this.userDataService.user$.pipe(
+        switchMap(user => {
+          if (user !== null) {
+            this.user = user;
+            return this.userRepository.getUserByLoginId(this.user.loginId);
+          }
+          // If user is null, return an empty observable
+          return of(null);
+        })
+      ).subscribe({
+        next: res => {
+          if (res !== null) {
+            this.user = res;
+            this.userDataService.setUser(res);
+          }
+        },
+        error: err => console.log(err)
+      });
 
   }
 
