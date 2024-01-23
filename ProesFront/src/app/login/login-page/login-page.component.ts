@@ -51,6 +51,7 @@ export class LoginPageComponent implements OnInit{
         this.authService.setAuthenticationStatus(true);
         this.saveLogin(login);
         await this.checkForUser(login.id);
+
         if (this.userExists) {
             console.log("User exists, navigating to /home");
             this.router.navigate(['/home']);
@@ -92,7 +93,6 @@ export class LoginPageComponent implements OnInit{
     try{
         const res = await this.userRepository.getUserByLoginId(loginId);
         const user = await lastValueFrom(res);
-        
         this.userExists = user.id > 0;
         if(this.userExists){
             this.userDataService.setUser(user);
