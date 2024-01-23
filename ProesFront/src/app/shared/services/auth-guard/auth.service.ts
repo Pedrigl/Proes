@@ -24,10 +24,8 @@ export class AuthService {
     }
 
     logOut() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('tokenExpiration');
-        localStorage.removeItem('user');
-        localStorage.removeItem('login');
+      localStorage.clear();
+      console.log(localStorage.getItem('user'))
         this.isAuthenticated = false;
     }
 
