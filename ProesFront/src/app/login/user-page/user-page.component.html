@@ -4,17 +4,17 @@
     <form (ngSubmit)="saveUser()">
       <div class="form-outline mb-4">
         <label class="form-label">Email</label>
-        <input type="email" name="Email" class="form-control" [(ngModel)]="user.email" />
+        <input type="email" name="Email" class="form-control" [(ngModel)]="user!.email" />
       </div>
 
       <div class="form-outline mb-4">
         <label class="form-label">Name</label>
-        <input type="text" name="Name" class="form-control" [(ngModel)]="user.name" />
+        <input type="text" name="Name" class="form-control" [(ngModel)]="user!.name" />
       </div>
 
       <div class="form-outline mb-4">
         <label class="form-label">Birth date</label>
-        <input type="datetime-local" name="Birthdate" class="form-control" [(ngModel)]="user.birthDate" />
+        <input type="datetime-local" name="Birthdate" class="form-control" [(ngModel)]="user!.birthDate" />
       </div>
 
       <div class="form-outline mb-4">

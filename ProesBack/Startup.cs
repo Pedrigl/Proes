@@ -85,6 +85,7 @@ namespace ProesBack
             app.UseRouting();
 
             app.UseCors("AllowAllOrigins");
+
             app.UseAuthentication();
             app.UseAuthorization();
 

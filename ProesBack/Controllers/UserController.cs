@@ -20,16 +20,16 @@ namespace ProesBack.Controllers
         }
 
         [HttpGet("GetByLoginId")]
-        public async Task<User> GetByLoginId(long loginId)
+        public async Task<IActionResult> GetByLoginId(long loginId)
         {
             try
             {
                 var user = _userViewModelService.GetUserByLoginId(loginId);
-                return user;
+                return Ok(user);
             }
             catch (Exception ex)
             {
-                return null;
+                return BadRequest();
             }
         }
 

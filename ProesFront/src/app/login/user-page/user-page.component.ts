@@ -18,6 +18,7 @@ export class UserPageComponent implements OnInit{
     private userRepository: UserRepositoryService,
     private userDataService: UserDataService,
     private loginDataService: LoginDataService,
+    private loginRepository: LoginDataService,
     private router: Router) {
   }
   
@@ -28,39 +29,50 @@ export class UserPageComponent implements OnInit{
         email: "",
         loginId: 0,
         pictureUrl: ""
-    };
+  };
+
     registerUserError: boolean = false;
     registerUserErrorMessage!: string;
 
-    ngOnInit() {
-        this.loginDataService.login$.subscribe({
+  ngOnInit() {
+    this.loginDataService.login$.subscribe({
+      next: res => {
+        if (res !== null) {
+          this.user.loginId = res.id;
+        }
+      }
+    });
+
+    this.userDataService.user$.subscribe({
+      next: res => {
+        if (res !== null) {
+          this.user = res;
+        }
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
+
+    if (this.user.id == 0) {
+      try {
+        this.userRepository.getUserByLoginId(this.user.loginId).subscribe({
           next: res => {
-                if(res !== null){
-                  this.user.loginId = res.id;
-                }
+            if (res != null) {
+              this.user = res;
+              this.userDataService.setUser(res);
             }
+          },
+          error: err => {
+            console.log(err);
+          }
         });
+      }
 
-        // TODO: ESSA PARTE AQUI TA SENDO REPETIDA VARIAS VEZES
-      this.userDataService.user$.pipe(
-        switchMap(user => {
-          if (user !== null) {
-            this.user = user;
-            return this.userRepository.getUserByLoginId(this.user.loginId);
-          }
-          // If user is null, return an empty observable
-          return of(null);
-        })
-      ).subscribe({
-        next: res => {
-          if (res !== null) {
-            this.user = res;
-            this.userDataService.setUser(res);
-          }
-        },
-        error: err => console.log(err)
-      });
-
+      catch (ex) {
+        console.log(ex);
+      }
+    }
   }
 
   async createUser() {

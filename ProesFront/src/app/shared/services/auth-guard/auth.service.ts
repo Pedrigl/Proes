@@ -25,7 +25,6 @@ export class AuthService {
 
     logOut() {
       localStorage.clear();
-      console.log(localStorage.getItem('user'))
         this.isAuthenticated = false;
     }
 
