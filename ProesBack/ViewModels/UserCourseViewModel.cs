@@ -1,6 +1,6 @@
-﻿namespace ProesBack.Domain.Entities
+﻿namespace ProesBack.ViewModels
 {
-    public class UserCourse : BaseModel
+    public class UserCourseViewModel
     {
         public long UserId { get; set; }
         public long CourseId { get; set; }

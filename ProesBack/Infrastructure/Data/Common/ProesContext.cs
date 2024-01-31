@@ -18,7 +18,7 @@ namespace ProesBack.Infrastructure.Data.Common
 
         public DbSet<Notification> Notifications { get; set; }
 
-        public DbSet<UserCourses> UserCourses { get; set; }
+        public DbSet<UserCourse> UserCourses { get; set; }
 
         public DbSet<Course> Courses { get; set; }
 

@@ -4,9 +4,9 @@ using ProesBack.Domain.Entities;
 
 namespace ProesBack.Infrastructure.Data.EntityConfig
 {
-    public class UserCoursesMap : IEntityTypeConfiguration <UserCourses>
+    public class UserCoursesMap : IEntityTypeConfiguration <UserCourse>
     {
-        public void Configure(EntityTypeBuilder<UserCourses> builder)
+        public void Configure(EntityTypeBuilder<UserCourse> builder)
         {
             builder.ToTable("UserCourses");
 

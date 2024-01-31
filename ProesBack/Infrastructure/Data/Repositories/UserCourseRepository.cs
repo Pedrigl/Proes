@@ -4,7 +4,7 @@ using ProesBack.Infrastructure.Data.Common;
 
 namespace ProesBack.Infrastructure.Data.Repositories
 {
-    public class UserCourseRepository : GenericRepository<UserCourses> , IUserCoursesRepository
+    public class UserCourseRepository : GenericRepository<UserCourse> , IUserCoursesRepository
     {
         private readonly ProesContext _dbContext;
 

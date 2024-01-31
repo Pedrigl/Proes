@@ -15,6 +15,12 @@ namespace ProesBack.Infrastructure.Web
             CreateMap<User, UserViewModel>();
             CreateMap<NotificationViewModel, Notification>();
             CreateMap<Notification, NotificationViewModel>();
+            CreateMap<UserCourseViewModel, UserCourse>();
+            CreateMap<UserCourse, UserCourseViewModel>();
+            CreateMap<CourseViewModel, Course>();
+            CreateMap<Course, CourseViewModel>();
+            CreateMap<AssignmentViewModel, Assignment>();
+            CreateMap<Assignment, AssignmentViewModel>();
         }
     }
 }

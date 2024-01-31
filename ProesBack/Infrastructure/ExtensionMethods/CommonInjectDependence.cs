@@ -19,6 +19,9 @@ namespace ProesBack.Infrastructure.ExtensionMethods
         {
             services.AddTransient<ILoginRepository, LoginRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ICourseRepository, CourseRepository>();
+            services.AddTransient<IAssignmentRepository, AssignmentRepository>();
+            services.AddTransient<IUserCoursesRepository, UserCourseRepository>();
             return services;
         }
     }
