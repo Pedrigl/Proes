@@ -28,7 +28,8 @@ namespace ProesBack.ViewModels
         [Display(Name = "FotoDePerfil")]
         public string? UserPictureUrl { get; set; }
 
-
+        [Display(Name = "Semestre")]
+        public Semesters Semester { get; set; }
 
     }
 }
