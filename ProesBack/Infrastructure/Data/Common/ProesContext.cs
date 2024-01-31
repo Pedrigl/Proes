@@ -18,11 +18,20 @@ namespace ProesBack.Infrastructure.Data.Common
 
         public DbSet<Notification> Notifications { get; set; }
 
+        public DbSet<UserCourses> UserCourses { get; set; }
+
+        public DbSet<Course> Courses { get; set; }
+
+        public DbSet<Assignment> Assignments { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new LoginMap());
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new NotificationMap());
+            modelBuilder.ApplyConfiguration(new UserCoursesMap());
+            modelBuilder.ApplyConfiguration(new CoursesMap());
+            modelBuilder.ApplyConfiguration(new AssignmentMap());
         }
     }
 }
