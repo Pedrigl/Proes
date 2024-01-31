@@ -1,6 +1,6 @@
 ﻿namespace ProesBack.Domain.Entities
 {
-    public class UserCourses
+    public class UserCourses : BaseModel
     {
         public long UserId { get; set; }
         public long CourseId { get; set; }
