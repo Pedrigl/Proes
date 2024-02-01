@@ -16,7 +16,7 @@ namespace ProesBack.Services
             _courseRepository = courseRepository;
         }
 
-        public async Task<IEnumerable<CourseViewModel>> GetCourses()
+        public IEnumerable<CourseViewModel> GetCourses()
         {
             var courses = _courseRepository.GetAll();
             return _mapper.Map<IEnumerable<CourseViewModel>>(courses);
@@ -28,21 +28,21 @@ namespace ProesBack.Services
             return _mapper.Map<CourseViewModel>(course);
         }
 
-        public void AddCourse(CourseViewModel courseViewModel)
+        public void CreateCourse(CourseViewModel courseViewModel)
         {
             var course = _mapper.Map<Course>(courseViewModel);
             _courseRepository.Insert(course);
             _courseRepository.Save();
         }
 
-        public async Task UpdateCourse(long id, CourseViewModel courseViewModel)
+        public void UpdateCourse(long id, CourseViewModel courseViewModel)
         {
             var course = _mapper.Map<Course>(courseViewModel);
             _courseRepository.Update(id, course);
             _courseRepository.Save();
         }
 
-        public async Task DeleteCourse(long id)
+        public void DeleteCourse(long id)
         {
             _courseRepository.Delete(id);
             _courseRepository.Save();
