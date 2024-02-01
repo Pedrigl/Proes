@@ -5,7 +5,7 @@ namespace ProesBack.Interfaces
 {
     public interface ILoginViewModelService
     {
-        string RefreshJSONWebToken(string token);
+        string RefreshJSONWebToken(LoginViewModel login);
         string GetKey(int id);
         LoginViewModel GetLogin(long id);
         Login GetLogin(string username, string password);

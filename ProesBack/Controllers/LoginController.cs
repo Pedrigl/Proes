@@ -1,9 +1,11 @@
 ﻿using IdentityModel.Client;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ProesBack.Domain.Entities;
 using ProesBack.Infrastructure.Data.Common;
 using ProesBack.Interfaces;
+using ProesBack.ViewModels;
 using System.Text;
 
 namespace ProesBack.Controllers
@@ -52,11 +54,11 @@ namespace ProesBack.Controllers
         }
 
         [HttpPost("RefreshToken")]
-        public async Task<IActionResult> Refresh([FromBody]string token)
+        public async Task<IActionResult> Refresh([FromBody]LoginViewModel login)
         {
             try
             {
-                var refreshToken = _loginViewModelService.RefreshJSONWebToken(token);
+                var refreshToken = _loginViewModelService.RefreshJSONWebToken(login);
                 return Ok(new { token = refreshToken });
             }
 
@@ -67,6 +69,7 @@ namespace ProesBack.Controllers
             
         }
 
+        [Authorize(Roles = "admin, principal")]
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] Login login)
         {
@@ -91,7 +94,6 @@ namespace ProesBack.Controllers
             catch (Exception ex)
             {
                 StatusCode(500, ex);
-                throw;
             }
             return BadRequest(login.Username+ " already exists");
             

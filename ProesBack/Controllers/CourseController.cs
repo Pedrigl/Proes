@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProesBack.Domain.Entities;
 using ProesBack.Interfaces;
@@ -8,6 +9,7 @@ namespace ProesBack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "admin, principal")]
     public class CourseController : ControllerBase
     {
         private readonly ICourseViewModelService _courseViewModelService;

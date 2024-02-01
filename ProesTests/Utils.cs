@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Moq;
+using ProesBack.Infrastructure.Data.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,17 @@ namespace ProesTests
                 //Act
                 return pictureMock.Object;
             }
+        }
+
+        public static ProesContext GetFakeDbContext()
+        {
+            var options = new DbContextOptionsBuilder<ProesContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+
+            var context = new ProesContext(options);
+
+            return context;
         }
 
     }

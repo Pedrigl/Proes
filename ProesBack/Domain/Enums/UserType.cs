@@ -4,7 +4,7 @@
     {
         student = 1,
         teacher = 2,
-        principaç = 3,
+        principal = 3,
         admin = 4
     }
 }

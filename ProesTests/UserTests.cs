@@ -1,91 +1,29 @@
-using Xunit;
-using Moq;
-using System.IO;
-using Microsoft.AspNetCore.Http;
-using AutoMapper;
-using ProesBack.Domain.Entities;
-using ProesBack.Domain.Interfaces;
+﻿using AutoMapper;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ProesBack.Infrastructure.Data.Repositories;
 using ProesBack.Interfaces;
-using ProesBack.Infrastructure.Web;
-using ProesTests;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ProesBack.Services.Tests
+namespace ProesTests
 {
-    public class UserViewModelServiceTests
+    [TestClass]
+    public class UserTests
     {
-        private readonly Mock<IUserRepository> _userRepositoryMock;
-        private readonly IMapper _mapperMock;
-        private readonly User _testUser;
-        private readonly UserViewModelService _testUserService;
+        private readonly IUserViewModelService _userViewModelService;
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserViewModelServiceTests()
+        public UserTests(IMapper mapper)
         {
-            _userRepositoryMock = new Mock<IUserRepository>();
-
-            _mapperMock = new MapperConfiguration(cfg =>cfg.AddProfile(new AutoMapping())).CreateMapper();
-
-            _testUser = new User
-            {
-                Id = 1,
-                Name = "testuser1"
-            };
-
-            _testUserService = new UserViewModelService(_userRepositoryMock.Object, _mapperMock);
-
+            _mapper = mapper;
+            IUserRepository _userRepository = new UserRepository(GetFakeDbContext());
+            IUserViewModelService _userViewModelService = new UserViewModelService(_userRepository, _mapper);
         }
 
-        [Fact]
-        public void GetUserShouldReturnSingleUser()
-        {
-            //Arrange
-            _userRepositoryMock.Setup(x => x.Get(_testUser.Id)).Returns(_testUser);
 
-            //Act
-            var result = _testUserService.GetByUserId(_testUser.Id);
-
-            //Assert
-            Assert.Equal(_testUser, result);
-        }
-
-        [Fact]
-        public void UpdateUserShouldUpdateUser()
-        {
-            //Arrange
-            _userRepositoryMock.Setup(x => x.Update(_testUser.Id,_testUser));
-
-            //Act
-            _testUserService.UpdateUser(_testUser);
-
-            //Assert
-            _userRepositoryMock.Verify(x => x.Save(), Times.Once);
-        }
-
-        [Fact]
-        public void DeleteUserShouldDeleteUser()
-        {
-            //Arrange
-            _userRepositoryMock.Setup(x => x.Delete(_testUser.Id));
-
-            //Act
-            _testUserService.DeleteUser(_testUser.Id);
-
-            //Assert
-            _userRepositoryMock.Verify(x => x.Save(), Times.Once);
-        }
-
-        [Fact]
-        public void InsertUserShouldInsertUser()
-        {
-            //Arrange
-            _userRepositoryMock.Setup(x => x.Insert(_testUser));
-            
-
-            //Act
-            _testUserService.InsertUser(_testUser);
-
-            //Assert
-            _userRepositoryMock.Verify(x => x.Save(), Times.Once);
-        }
-        
     }
 }

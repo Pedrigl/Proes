@@ -58,8 +58,9 @@ namespace ProesBack.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public string RefreshJSONWebToken(string token)
+        public string RefreshJSONWebToken(LoginViewModel login)
         {
+            var mappedLogin = _mapper.Map<LoginViewModel,Login>(login);
             var gerenciadorDeToken = new JwtSecurityToken();
             var chave = Encoding.ASCII.GetBytes(Settings.GetKey());
 
@@ -74,26 +75,23 @@ namespace ProesBack.Services
 
             SecurityToken tokenDeSeguranca;
 
-            var principal = new JwtSecurityTokenHandler().ValidateToken(token, parametrosDeValidacao, out tokenDeSeguranca);
+            var principal = new JwtSecurityTokenHandler().ValidateToken(mappedLogin.Token, parametrosDeValidacao, out tokenDeSeguranca);
 
             var jwtSecurityToken = tokenDeSeguranca as JwtSecurityToken;
 
             if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
                 throw new SecurityTokenException("Token inválido");
 
-            var loginId = int.Parse(principal.FindFirst("userId").Value);
-
-            var login = _loginRepository.Get(loginId);
-
-            if(login == null)
+            if(mappedLogin == null)
                 throw new SecurityTokenException("Usuario inválido");
 
-            login.Token = GenerateJSONWebToken(login);
+            mappedLogin.Token = GenerateJSONWebToken(mappedLogin);
 
-            login.TokenExpiration = DateTime.Now.AddMinutes(30);
+            mappedLogin.TokenExpiration = DateTime.Now.AddMinutes(30);
+            _loginRepository.Update(mappedLogin.Id, mappedLogin);
             _loginRepository.Save();
 
-            return login.Token;
+            return mappedLogin.Token;
         }
 
         public string GetKey(int id)
@@ -106,7 +104,7 @@ namespace ProesBack.Services
         public LoginViewModel GetLogin(long id)
         {
             var login = _loginRepository.Get(id);
-            var loginViewModel = _mapper.Map<LoginViewModel>(login);
+            var loginViewModel = _mapper.Map<Login,LoginViewModel>(login);
             return loginViewModel;
         }
         public Login GetLogin(string username, string password)
