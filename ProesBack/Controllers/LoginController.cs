@@ -20,7 +20,7 @@ namespace ProesBack.Controllers
         }
 
         [HttpGet("Login")]
-        public async Task<ActionResult<dynamic>> Login(string username, string password)
+        public async Task<IActionResult> Login(string username, string password)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace ProesBack.Controllers
                 if (token == null)
                     return BadRequest("Failed to authenticate");
 
-                return _loginViewModelService.GetLogin(user.Id);
+                return Ok(_loginViewModelService.GetLogin(user.Id));
             }
             catch (Exception ex)
             {
