@@ -12,6 +12,9 @@ namespace ProesBack.Infrastructure.ExtensionMethods
         {
             services.AddTransient<ILoginViewModelService, LoginViewModelService>();
             services.AddTransient<IUserViewModelService, UserViewModelService>();
+            services.AddTransient<ICourseViewModelService, CourseViewModelService>();
+            services.AddTransient<IAssignmentViewModelService, AssignmentViewModelService>();
+            services.AddTransient<IUserCourseViewModelService, UserCourseViewModelService>();
             //TODO: CRIAR SERVICES PARA NOVAS ENTITIES E ADICIONÁLOS AQUI
             return services;
         }

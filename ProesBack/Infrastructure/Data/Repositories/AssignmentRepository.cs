@@ -12,5 +12,10 @@ namespace ProesBack.Infrastructure.Data.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public ICollection<Assignment> GetByCourseId(long courseId)
+        {
+            return _dbContext.Assignments.Where(x => x.CourseId == courseId).ToList();
+        }
     }
 }
