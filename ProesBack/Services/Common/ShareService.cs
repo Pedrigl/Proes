@@ -34,8 +34,9 @@ namespace ProesBack.Services.Common
         {
             ShareDirectoryClient directoryClient = _shareClient.GetDirectoryClient("ProfilePictures");
             ShareFileClient fileClient = directoryClient.GetFileClient(fileName);
+            var canGenerateUri = fileClient.CanGenerateSasUri;
 
-            return fileClient.GenerateSasUri(ShareFileSasPermissions.Read, DateTimeOffset.Now.AddHours(1)).ToString();
+            return fileClient.GenerateSasUri(ShareFileSasPermissions.Read, DateTimeOffset.UtcNow.AddHours(1)).ToString();
         }
     }
 }

@@ -6,6 +6,7 @@ using ProesBack.Infrastructure.Data.Repositories;
 using ProesBack.Infrastructure.Web;
 using ProesBack.Interfaces;
 using ProesBack.ViewModels;
+using System.Net;
 
 namespace ProesTests
 {
@@ -103,7 +104,7 @@ namespace ProesTests
             var request = client.GetAsync(pictureLink);
             request.Wait();
             var response = request.Result;
-            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
 
