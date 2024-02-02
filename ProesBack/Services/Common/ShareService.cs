@@ -2,6 +2,7 @@
 using Azure.Storage.Files.Shares;
 using Azure.Storage.Files.Shares.Models;
 using Azure.Storage.Sas;
+using Dropbox.Api.TeamLog;
 using Microsoft.AspNetCore.Mvc;
 using ProesBack.Interfaces.Common;
 namespace ProesBack.Services.Common
@@ -22,6 +23,7 @@ namespace ProesBack.Services.Common
             ShareDirectoryClient directoryClient = _shareClient.GetDirectoryClient("ProfilePictures");
 
             ShareFileClient fileClient = directoryClient.GetFileClient(fileName);
+            stream.Position = 0;
             var fileInfo = fileClient.Create(stream.Length);
             var fileUploadInfo = fileClient.Upload(stream);
 

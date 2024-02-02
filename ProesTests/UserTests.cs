@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ProesBack.Infrastructure.Data.Common;
 using ProesBack.Infrastructure.Data.Repositories;
+using ProesBack.Infrastructure.Web;
 using ProesBack.Interfaces;
 using ProesBack.ViewModels;
 
@@ -9,20 +12,26 @@ namespace ProesTests
     [TestClass]
     public class UserTests
     {
-        private readonly IUserViewModelService _userViewModelService;
-        private readonly IUserRepository _userRepository;
-        private readonly IMapper _mapper;
-
-        public UserTests(IMapper mapper)
-        {
-            _mapper = mapper;
-            IUserRepository _userRepository = new UserRepository(GetFakeDbContext());
-            IUserViewModelService _userViewModelService = new UserViewModelService(_userRepository, _mapper);
-        }
+        private IUserViewModelService _userViewModelService;
+        private IUserRepository _userRepository;
+        private IMapper _mapper;
+        private IConfiguration _configuration;
 
         [TestInitialize]
         public void Initialize()
         {
+            _configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+
+            Settings.Setup(_configuration);
+
+            _mapper = new Mapper(new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutoMapping());
+            }));
+
+            IUserRepository _userRepository = new UserRepository(GetFakeDbContext());
+            _userViewModelService = new UserViewModelService(_userRepository, _mapper);
+
             _userViewModelService.InsertUser(new UserViewModel
             {
                 Id = 1,

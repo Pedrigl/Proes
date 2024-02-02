@@ -62,13 +62,13 @@ namespace ProesBack.Services
         public ShareFileUploadInfo UploadPicture(long userId, IFormFile picture)
         {
             var pictureStream = picture.OpenReadStream();
-            return ShareService.UploadProfilePicture($"Id:{userId}_ProfilePicutre", pictureStream);
+            return ShareService.UploadProfilePicture($"Id{userId}profilepicutre.png", pictureStream);
             
         }
 
         public string GetLinkToPicture(long userId)
         {
-            return ShareService.GetAuthorizedLinkToProfilePicture($"Id:{userId}_ProfilePicutre");
+            return ShareService.GetAuthorizedLinkToProfilePicture($"Id{userId}ProfilePicutre");
         }           
 
 

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using ProesBack.Infrastructure.Data.Common;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,26 +16,41 @@ namespace ProesTests
 
         public static IFormFile CreateBlankPicture()
         {
-            //Arrange
+            // Arrange
             var pictureMock = new Mock<IFormFile>();
 
-            using (var stream = new MemoryStream())
-            {
-                var writer = new StreamWriter(stream);
-                writer.Write("test");
-                writer.Flush();
+            // Create a blank white PNG
+            var width = 100;
+            var height = 100;
+            var color = SKColors.White;
+
+            var stream = new MemoryStream();
+                using (var surface = SKSurface.Create(width, height, SKImageInfo.PlatformColorType, SKAlphaType.Premul))
+                {
+                    var canvas = surface.Canvas;
+                    canvas.Clear(color);
+
+                    using (var image = surface.Snapshot())
+                    using (var data = image.Encode(SKEncodedImageFormat.Png, 100))
+                    using (var skStream = data.AsStream())
+                    {
+                        skStream.CopyTo(stream);
+                    }
+                }
+
                 stream.Position = 0;
 
-                var fileName = "testfile.png";
+                var fileName = "white_background.png";
 
                 pictureMock.Setup(f => f.OpenReadStream()).Returns(stream);
                 pictureMock.Setup(f => f.FileName).Returns(fileName);
                 pictureMock.Setup(f => f.Length).Returns(stream.Length);
 
-                //Act
+                // Act
                 return pictureMock.Object;
             }
-        }
+
+
 
         public static ProesContext GetFakeDbContext()
         {

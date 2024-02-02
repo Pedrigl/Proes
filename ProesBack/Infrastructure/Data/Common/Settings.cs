@@ -8,7 +8,7 @@
         public static void Setup(IConfiguration configuration)
         {
             var settings = configuration.GetSection("MySettings");
-            ProesFilesUrl = settings.GetConnectionString("ProesFilesUrl");
+            ProesFilesUrl = settings.GetValue<string>("ProesFilesUrl");
             Key = settings.GetValue<string>("Key");
         }
     }
