@@ -4,7 +4,7 @@ namespace ProesBack.Domain.Entities
 {
     public class User : BaseModel
     {
-        public long loginId { get; set; }
+        public long LoginId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public DateTime BirthDate { get; set; }

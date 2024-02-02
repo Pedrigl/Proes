@@ -15,7 +15,7 @@ namespace ProesBack.Infrastructure.Data.EntityConfig
             
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
 
-            builder.Property(x => x.loginId).IsRequired();
+            builder.Property(x => x.LoginId).IsRequired();
 
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
 

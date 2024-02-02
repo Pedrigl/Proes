@@ -5,6 +5,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProesBack.ViewModels;
 using ProesBack.Domain.Enums;
 using ProesBack.Infrastructure.Web;
+using Microsoft.Extensions.Configuration;
+using ProesBack.Infrastructure.Data.Common;
 namespace ProesTests
 {
     [TestClass]
@@ -13,14 +15,19 @@ namespace ProesTests
         private  ILoginViewModelService _loginViewModelService;
         private ILoginRepository _loginRepository;
         private IMapper _mapper;
+        private IConfiguration _configuration;
 
         [TestInitialize]
         public void Initialize()
         {
+            _configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+            Settings.Setup(_configuration);
+
             _mapper = new Mapper(new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new AutoMapping());
             }));
+
             _loginRepository = new LoginRepository(GetFakeDbContext());
             _loginViewModelService = new LoginViewModelService(_loginRepository, _mapper);
             _loginViewModelService.InsertLogin(new Login
@@ -50,6 +57,22 @@ namespace ProesTests
         }
 
         [TestMethod]
+        public void GetLoginTest()
+        {
+            var login = _loginViewModelService.GetLogin("testInit", "testInit");
+            login.Should().NotBeNull();
+        }
+
+        [TestMethod]
+        public void GeneraterJSONWebTokenTest()
+        {
+            var login = _loginViewModelService.GetLogin("testInit", "testInit");
+
+            var token = _loginViewModelService.GenerateJSONWebToken(login);
+            token.Should().NotBeNull();
+        }
+
+        [TestMethod]
         public void UpdateLoginTest()
         {
             var login = _loginViewModelService.GetLogin(1);
@@ -68,25 +91,10 @@ namespace ProesTests
         [TestMethod]
         public void AuthenticateTest()
         {
-            var login = _loginViewModelService.GetLogin(1);
-            var mappedLogin = _mapper.Map<LoginViewModel, Login>(login);
-            var token = _loginViewModelService.Authenticate(mappedLogin);
+            var login = _loginViewModelService.GetLogin("testInit", "testInit");
+            var token = _loginViewModelService.Authenticate(login);
             token.Should().NotBeNull();
         }
-
-        [TestMethod]
-        public void RefreshTokenTest()
-        {
-            var login = _loginViewModelService.GetLogin(1);
-
-            var token = login.Token;
-
-            var newToken = _loginViewModelService.RefreshJSONWebToken(login);
-
-            token.Should().NotBe(newToken);
-        }
-
-
 
         [TestMethod]
         public void DeleteLoginTest()

@@ -1,7 +1,9 @@
 ﻿using ProesBack.Domain.Interfaces;
 using ProesBack.Infrastructure.Data.Repositories;
 using ProesBack.Interfaces;
+using ProesBack.Interfaces.Common;
 using ProesBack.Services;
+using ProesBack.Services.Common;
 using System.Runtime.CompilerServices;
 
 namespace ProesBack.Infrastructure.ExtensionMethods
@@ -15,7 +17,7 @@ namespace ProesBack.Infrastructure.ExtensionMethods
             services.AddTransient<ICourseViewModelService, CourseViewModelService>();
             services.AddTransient<IAssignmentViewModelService, AssignmentViewModelService>();
             services.AddTransient<IUserCourseViewModelService, UserCourseViewModelService>();
-            //TODO: CRIAR SERVICES PARA NOVAS ENTITIES E ADICIONÁLOS AQUI
+            
             return services;
         }
 

@@ -1,19 +1,21 @@
-﻿using ProesBack.Domain.Entities;
+﻿using Azure.Storage.Files.Shares.Models;
+using ProesBack.Domain.Entities;
+using ProesBack.ViewModels;
 
 namespace ProesBack.Interfaces
 {
     public interface IUserViewModelService
     {
-        User GetUserByLoginId(long loginId);
+        UserViewModel GetUserByLoginId(long loginId);
 
-        User GetByUserId(long id);
+        UserViewModel GetByUserId(long id);
 
-        void UpdateUser(User user);
+        void UpdateUser(UserViewModel user);
 
         void DeleteUser(long id);
 
-        void InsertUser(User user);
-
-        string UploadPicture(IFormFile picture);
+        void InsertUser(UserViewModel user);
+        ShareFileUploadInfo UploadPicture(long userId, IFormFile picture);
+        string GetLinkToPicture(long userId);
     }
 }

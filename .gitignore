@@ -61,3 +61,5 @@ ProesBack/.vs/Proes/copilot-chat/e5bfdaf8/V0_dee34c54-df44-4224-83c0-fccf55ee999
 /ProesBack/bin/Debug/net7.0/appsettings.json
 /ProesTests/bin/Debug/fine-code-coverage-net7.0
 /ProesBack/.vs/Proes/copilot-chat/e5bfdaf8/V0_87b7a030-6e9d-4e38-aff5-3669f22591ef_Default
+/ProesTests/appsettings.Development.json
+/ProesTests/appsettings.json

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProesBack.Domain.Entities;
 using ProesBack.Interfaces;
+using ProesBack.ViewModels;
 
 namespace ProesBack.Controllers
 {
@@ -34,21 +35,21 @@ namespace ProesBack.Controllers
         }
 
         [HttpGet("GetByUserId")]
-        public async Task<User> GetByUserId(long userId)
+        public async Task<IActionResult> GetByUserId(long userId)
         {
             try
             {
                 var user = _userViewModelService.GetByUserId(userId);
-                return user;
+                return Ok(user);
             }
             catch (Exception ex)
             {
-                return null;
+                return BadRequest(ex);
             }
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Insert([FromBody]User user)
+        public async Task<IActionResult> Insert([FromBody]UserViewModel user)
         {
             try
             {
@@ -64,7 +65,7 @@ namespace ProesBack.Controllers
 
                 _loginViewModelService.UpdateLogin(new Login
                 {
-                    Id = user.loginId,
+                    Id = user.LoginId,
                     UserId = user.Id,
                 });
 
@@ -72,12 +73,12 @@ namespace ProesBack.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                return BadRequest(ex);
             }
         }
 
         [HttpPut("Update")]
-        public IActionResult Update(User user)
+        public IActionResult Update(UserViewModel user)
         {
             try
             {
@@ -114,17 +115,41 @@ namespace ProesBack.Controllers
         }
 
         [HttpPost("SendPicture")]
-        public IActionResult SendPicture(IFormFile file)
+        public async Task<IActionResult> SendPicture(IFormFile file, long userId)
         {
             try
             {
                 if (file == null)
                     return BadRequest("File is empty");
 
-                var user = _userViewModelService.GetByUserId(int.Parse(User.Identity.Name));
-                user.PictureUrl = _userViewModelService.UploadPicture(file);
+                var user = _userViewModelService.GetByUserId(userId);
+                if (user == null)
+                    return BadRequest("User not found");
+
+                var fileUpload = _userViewModelService.UploadPicture(userId,file);
+                
+                user.PictureUrl = _userViewModelService.GetLinkToPicture(userId);
                 _userViewModelService.UpdateUser(user);
+
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("GetPicture")]
+        public async Task<IActionResult> GetPicture(long userId)
+        {
+            try
+            {
+                var user = _userViewModelService.GetByUserId(userId);
+                if (user == null)
+                    return BadRequest("User not found");
+
+                var pictureUrl = _userViewModelService.GetLinkToPicture(userId);
+                return Ok(pictureUrl);
             }
             catch (Exception ex)
             {

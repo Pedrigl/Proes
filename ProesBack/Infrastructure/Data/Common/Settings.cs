@@ -2,9 +2,14 @@
 {
     public static class Settings
     {
-        public static string GetKey()
+        public static string ProesFilesUrl { get; private set; }
+        public static string Key { get; private set; }
+
+        public static void Setup(IConfiguration configuration)
         {
-            return "e3b9f9a0-0e1a-4b7a-8b0a-0e1a4b7a8b0a";
+            var settings = configuration.GetSection("MySettings");
+            ProesFilesUrl = settings.GetConnectionString("ProesFilesUrl");
+            Key = settings.GetValue<string>("Key");
         }
     }
 }

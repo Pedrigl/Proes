@@ -2,7 +2,12 @@
 using ProesBack.Domain.Entities;
 using ProesBack.Domain.Interfaces;
 using ProesBack.Interfaces;
-
+using ProesBack.ViewModels;
+using Azure;
+using ProesBack.Services.Common;
+using ProesBack.Infrastructure.Data.Common;
+using ProesBack.Interfaces.Common;
+using Azure.Storage.Files.Shares.Models;
 namespace ProesBack.Services
 {
     public class UserViewModelService : IUserViewModelService
@@ -11,25 +16,33 @@ namespace ProesBack.Services
         private readonly IMapper _mapper;
         private readonly ILoginRepository _loginRepository;
 
+        private IShareService ShareService 
+        {
+            get => new ShareService(Settings.ProesFilesUrl,"proesfiles");
+        }
+
         public UserViewModelService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
             _mapper = mapper;
         }
 
-        public User GetUserByLoginId(long loginId)
+        public UserViewModel GetUserByLoginId(long loginId)
         {
-            return _userRepository.GetByLoginId(loginId);
+            var user = _userRepository.GetByLoginId(loginId);
+            return _mapper.Map<User,UserViewModel>(user);
         }
 
-        public User GetByUserId(long id)
+        public UserViewModel GetByUserId(long id)
         {
-            return _userRepository.Get(id);
+            var user = _userRepository.Get(id);
+            return _mapper.Map<User, UserViewModel>(user);
         }
 
-        public void UpdateUser(User user)
+        public void UpdateUser(UserViewModel user)
         {
-            _userRepository.Update(user.Id, user);
+            var mappedUser = _mapper.Map<UserViewModel, User>(user);
+            _userRepository.Update(mappedUser.Id, mappedUser);
             _userRepository.Save();
         }
 
@@ -39,15 +52,25 @@ namespace ProesBack.Services
             _userRepository.Save();
         }
 
-        public void InsertUser(User user)
+        public void InsertUser(UserViewModel user)
         {
-            _userRepository.Insert(user);   
+            var mappedUser = _mapper.Map<UserViewModel, User>(user);
+            _userRepository.Insert(mappedUser);   
             _userRepository.Save();
         }
 
-        public string UploadPicture(IFormFile picture)
+        public ShareFileUploadInfo UploadPicture(long userId, IFormFile picture)
         {
-            return "";
+            var pictureStream = picture.OpenReadStream();
+            return ShareService.UploadProfilePicture($"Id:{userId}_ProfilePicutre", pictureStream);
+            
         }
+
+        public string GetLinkToPicture(long userId)
+        {
+            return ShareService.GetAuthorizedLinkToProfilePicture($"Id:{userId}_ProfilePicutre");
+        }           
+
+
     }
 }

@@ -15,7 +15,7 @@ namespace ProesBack.Infrastructure.Data.Repositories
 
         public User GetByLoginId(long loginId)
         {
-            return _dbContext.Users.FirstOrDefault(x => x.loginId == loginId);
+            return _dbContext.Users.FirstOrDefault(x => x.LoginId == loginId);
         }
 
     }

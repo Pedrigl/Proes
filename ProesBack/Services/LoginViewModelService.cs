@@ -26,7 +26,7 @@ namespace ProesBack.Services
         public string Authenticate(Login login)
         {
             var credentials = _loginRepository.Login(login.Username, login.Password);
-            //fazer autenticação
+            
             if (credentials != null)
             {
                 var token = GenerateJSONWebToken(login);
@@ -36,9 +36,9 @@ namespace ProesBack.Services
             return null;
         }
         
-        private string GenerateJSONWebToken(Login login)
+        public string GenerateJSONWebToken(Login login)
         {
-            var chaveDeSeguranca = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Settings.GetKey()));
+            var chaveDeSeguranca = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Settings.Key));
             var credenciaisDeAcesso = new SigningCredentials(chaveDeSeguranca, SecurityAlgorithms.HmacSha256);
 
             var claims = new List<Claim>
@@ -62,7 +62,7 @@ namespace ProesBack.Services
         {
             var mappedLogin = _mapper.Map<LoginViewModel,Login>(login);
             var gerenciadorDeToken = new JwtSecurityToken();
-            var chave = Encoding.ASCII.GetBytes(Settings.GetKey());
+            var chave = Encoding.ASCII.GetBytes(Settings.Key);
 
             var parametrosDeValidacao = new TokenValidationParameters
             {
