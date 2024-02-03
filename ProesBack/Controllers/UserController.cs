@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProesBack.Domain.Entities;
+using ProesBack.Domain.Enums;
 using ProesBack.Interfaces;
 using ProesBack.ViewModels;
 
@@ -121,6 +122,9 @@ namespace ProesBack.Controllers
             {
                 if (file == null)
                     return BadRequest("File is empty");
+
+                if (!(file.ContentType.Contains("image") || _userViewModelService.GetSupportedPictureTypes().Any(t => file.ContentType.Contains(t.ToString()))))
+                    return BadRequest("File is not an upported image file");
 
                 var user = _userViewModelService.GetByUserId(userId);
                 if (user == null)

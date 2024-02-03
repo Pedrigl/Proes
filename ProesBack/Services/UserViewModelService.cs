@@ -8,6 +8,7 @@ using ProesBack.Services.Common;
 using ProesBack.Infrastructure.Data.Common;
 using ProesBack.Interfaces.Common;
 using Azure.Storage.Files.Shares.Models;
+using ProesBack.Domain.Enums;
 namespace ProesBack.Services
 {
     public class UserViewModelService : IUserViewModelService
@@ -65,10 +66,13 @@ namespace ProesBack.Services
             return ShareService.UploadProfilePicture($"Id{userId}profilepicutre.png", pictureStream);
             
         }
-
+        public static PictureType[] GetSupportedPictureTypes()
+        {
+            return Enum.GetNames(typeof(PictureType)).Cast<PictureType>().ToArray();
+        }
         public string GetLinkToPicture(long userId)
         {
-            return ShareService.GetAuthorizedLinkToProfilePicture($"Id{userId}ProfilePicutre");
+            return ShareService.GetAuthorizedLinkToProfilePicture($"Id{userId}profilepicutre.png");
         }           
 
 

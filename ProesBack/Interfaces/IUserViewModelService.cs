@@ -1,5 +1,6 @@
 ﻿using Azure.Storage.Files.Shares.Models;
 using ProesBack.Domain.Entities;
+using ProesBack.Domain.Enums;
 using ProesBack.ViewModels;
 
 namespace ProesBack.Interfaces
@@ -17,5 +18,6 @@ namespace ProesBack.Interfaces
         void InsertUser(UserViewModel user);
         ShareFileUploadInfo UploadPicture(long userId, IFormFile picture);
         string GetLinkToPicture(long userId);
+        PictureType[] GetSupportedPictureTypes();
     }
 }
