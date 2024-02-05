@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace ProesTests
 {
     [TestClass]
-    public class AssignmentTest
+    public class AssignmentTests
     {
         private IMapper _mapper;
         private IAssignmentViewModelService _assignmentViewModelService;
