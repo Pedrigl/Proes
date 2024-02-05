@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using ProesBack.Infrastructure.Data.Common;
+using ProesBack.Infrastructure.Web;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -51,6 +53,15 @@ namespace ProesTests
                 return pictureMock.Object;
             }
 
+        public static Mapper GetMapper()
+        {
+            var mapper = new Mapper(new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutoMapping());
+            }));
+
+            return mapper;
+        }
 
 
         public static ProesContext GetFakeDbContext()

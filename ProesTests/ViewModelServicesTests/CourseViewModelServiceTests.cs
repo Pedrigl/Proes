@@ -23,10 +23,7 @@ namespace ProesTests.ViewModelServicesTests
         public void Initialize()
         {
             IConfiguration configuration = GetConfiguration();
-            _mapper = new Mapper(new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new AutoMapping());
-            }));
+            _mapper = GetMapper();
 
             ICourseRepository courseRepository = new CourseRepository(GetFakeDbContext());
             _courseViewModelService = new CourseViewModelService(_mapper, courseRepository);

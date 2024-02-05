@@ -25,10 +25,7 @@ namespace ProesTests.ViewModelServicesTests
             IUserCoursesRepository userCoursesRepository = new UserCourseRepository(GetFakeDbContext());
             ICourseRepository courseRepository = new CourseRepository(GetFakeDbContext());
             IUserRepository userRepository = new UserRepository(GetFakeDbContext());
-            _mapper = new Mapper(new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new AutoMapping());
-            }));
+            _mapper = GetMapper();
 
             _userCourseViewModelService = new UserCourseViewModelService(userCoursesRepository, courseRepository, userRepository, _mapper);
 

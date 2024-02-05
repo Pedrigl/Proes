@@ -21,10 +21,7 @@ namespace ProesTests.ViewModelServicesTests
             IConfiguration configuration = GetConfiguration();
             Settings.Setup(configuration);
 
-            _mapper = new Mapper(new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new AutoMapping());
-            }));
+            _mapper = GetMapper();
 
             LoginRepository _loginRepository = new LoginRepository(GetFakeDbContext());
             _loginViewModelService = new LoginViewModelService(_loginRepository, _mapper);

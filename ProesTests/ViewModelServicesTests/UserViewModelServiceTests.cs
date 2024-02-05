@@ -23,10 +23,7 @@ namespace ProesTests.ViewModelServicesTests
 
             Settings.Setup(configuration);
 
-            _mapper = new Mapper(new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new AutoMapping());
-            }));
+            _mapper = GetMapper();
 
             IUserRepository _userRepository = new UserRepository(GetFakeDbContext());
             _userViewModelService = new UserViewModelService(_userRepository, _mapper);

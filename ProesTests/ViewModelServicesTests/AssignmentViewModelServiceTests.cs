@@ -22,10 +22,7 @@ namespace ProesTests.ViewModelServicesTests
         public void Initialize()
         {
             IAssignmentRepository assignmentRepository = new AssignmentRepository(GetFakeDbContext());
-            _mapper = new Mapper(new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new AutoMapping());
-            }));
+            _mapper = GetMapper();
             _assignmentViewModelService = new AssignmentViewModelService(assignmentRepository, _mapper);
 
             _assignmentViewModelService.CreateAssignment(new AssignmentViewModel
