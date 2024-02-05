@@ -1,4 +1,5 @@
-﻿using ProesBack.ViewModels;
+﻿using ProesBack.Domain.Models;
+using ProesBack.ViewModels;
 
 namespace ProesBack.Interfaces
 {
@@ -9,5 +10,7 @@ namespace ProesBack.Interfaces
         void UpdateCourseForUser(long id, UserCourseViewModel userCourseViewModel);
         UserCourseViewModel GetUserCourse(long id);
         IEnumerable<UserCourseViewModel> GetUserCourses();
+        IEnumerable<UserCourseViewModel> GetUserCoursesByUserId(long userId);
+        UserCourseValidty IsUserCourseValid(UserCourseViewModel userCourse)
     }
 }
