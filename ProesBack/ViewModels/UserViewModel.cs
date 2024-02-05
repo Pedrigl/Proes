@@ -20,13 +20,10 @@ namespace ProesBack.ViewModels
         [Required(ErrorMessage = "O campo Email é obrigatório")]
         public string Email { get; set; }
 
-        [Display(Name = "DataDeNascimento")]
         public DateTime BirthDate { get; set; }
 
-        [Display(Name = "FotoDePerfil")]
         public string? PictureUrl { get; set; }
 
-        [Display(Name = "Semestre")]
         public Semesters Semester { get; set; }
 
     }
