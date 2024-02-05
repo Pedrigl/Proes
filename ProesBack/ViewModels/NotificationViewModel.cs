@@ -14,7 +14,10 @@ namespace ProesBack.ViewModels
         public string Message { get; set; }
         public bool IsRead { get; set; }
 
+        [Required(ErrorMessage = "O campo SenderId é obrigatório")]
         public long SenderId { get; set; }
+
+        [Required(ErrorMessage = "O campo ReceiverId é obrigatório")]
         public long ReceiverId { get; set; }
         public DateTime Date { get; set; }
         public NotificationType Type { get; set; }
