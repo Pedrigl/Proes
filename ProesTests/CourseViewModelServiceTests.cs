@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace ProesTests
 {
     [TestClass]
-    public class CourseTests
+    public class CourseViewModelServiceTests
     {
         private ICourseViewModelService _courseViewModelService;
         private IMapper _mapper;

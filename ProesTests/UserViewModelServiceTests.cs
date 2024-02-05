@@ -11,7 +11,7 @@ using System.Net;
 namespace ProesTests
 {
     [TestClass]
-    public class UserTests
+    public class UserViewModelServiceTests
     {
         private IUserViewModelService _userViewModelService;
         private IMapper _mapper;

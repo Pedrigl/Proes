@@ -10,7 +10,7 @@ using ProesBack.Infrastructure.Data.Common;
 namespace ProesTests
 {
     [TestClass]
-    public class LoginTests
+    public class LoginViewModelServiceTests
     {
         private  ILoginViewModelService _loginViewModelService;
         private IMapper _mapper;
