@@ -11,6 +11,6 @@ namespace ProesBack.Interfaces
         UserCourseViewModel GetUserCourse(long id);
         IEnumerable<UserCourseViewModel> GetUserCourses();
         IEnumerable<UserCourseViewModel> GetUserCoursesByUserId(long userId);
-        UserCourseValidty IsUserCourseValid(UserCourseViewModel userCourse)
+        UserCourseValidty IsUserCourseValid(UserCourseViewModel userCourse);
     }
 }

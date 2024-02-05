@@ -14,16 +14,13 @@ namespace ProesBack.ViewModels
         [Required(ErrorMessage = "O campo loginId é obrigatório")]
         public long LoginId { get; set; }
 
-        [Display(Name = "NomeDeUsuario")]
-        [Required(ErrorMessage = "O campo UserName é obrigatório")]
+        [Required(ErrorMessage = "O campo Name é obrigatório")]
         public string Name { get; set; }
 
-        [Display(Name = "Email")]
         [Required(ErrorMessage = "O campo Email é obrigatório")]
         public string Email { get; set; }
 
         [Display(Name = "DataDeNascimento")]
-        [Required(ErrorMessage = "O campo BirthDate é obrigatório")]
         public DateTime BirthDate { get; set; }
 
         [Display(Name = "FotoDePerfil")]
