@@ -8,7 +8,7 @@ using ProesBack.Interfaces;
 using ProesBack.ViewModels;
 using System.Net;
 
-namespace ProesTests
+namespace ProesTests.ViewModelServicesTests
 {
     [TestClass]
     public class UserViewModelServiceTests
@@ -89,7 +89,7 @@ namespace ProesTests
         [TestMethod]
         public void ShouldUploadPicture()
         {
-            
+
             var pictureUpload = _userViewModelService.UploadPicture(1, CreateBlankPicture());
             pictureUpload.Should().NotBeNull();
         }

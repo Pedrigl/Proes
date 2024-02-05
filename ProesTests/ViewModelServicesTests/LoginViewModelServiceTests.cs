@@ -7,12 +7,12 @@ using ProesBack.Domain.Enums;
 using ProesBack.Infrastructure.Web;
 using Microsoft.Extensions.Configuration;
 using ProesBack.Infrastructure.Data.Common;
-namespace ProesTests
+namespace ProesTests.ViewModelServicesTests
 {
     [TestClass]
     public class LoginViewModelServiceTests
     {
-        private  ILoginViewModelService _loginViewModelService;
+        private ILoginViewModelService _loginViewModelService;
         private IMapper _mapper;
 
         [TestInitialize]
@@ -41,7 +41,8 @@ namespace ProesTests
         [TestMethod()]
         public void ShouldCreateStudentLogin()
         {
-            _loginViewModelService.InsertLogin(new Login { 
+            _loginViewModelService.InsertLogin(new Login
+            {
                 Id = 2,
                 Username = "test",
                 Password = "test",
@@ -102,6 +103,6 @@ namespace ProesTests
             login.Should().BeNull();
         }
 
-        
+
     }
 }

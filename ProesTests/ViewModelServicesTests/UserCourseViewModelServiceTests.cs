@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProesTests
+namespace ProesTests.ViewModelServicesTests
 {
     [TestClass]
     public class UserCourseViewModelServiceTests

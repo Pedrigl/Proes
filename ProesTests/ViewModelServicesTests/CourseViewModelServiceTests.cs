@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProesTests
+namespace ProesTests.ViewModelServicesTests
 {
     [TestClass]
     public class CourseViewModelServiceTests
@@ -29,7 +29,7 @@ namespace ProesTests
             }));
 
             ICourseRepository courseRepository = new CourseRepository(GetFakeDbContext());
-            _courseViewModelService = new CourseViewModelService(_mapper,courseRepository);
+            _courseViewModelService = new CourseViewModelService(_mapper, courseRepository);
 
             _courseViewModelService.CreateCourse(new CourseViewModel
             {
@@ -47,12 +47,12 @@ namespace ProesTests
         {
             _courseViewModelService.CreateCourse(new CourseViewModel
             {
-             Id = 2,
-             Title = "test",
-             Semester = ProesBack.Domain.Enums.Semesters.Nineth,
-             CreationDate = DateTime.Now,
-             Description = "test",
-             TeacherId = 1
+                Id = 2,
+                Title = "test",
+                Semester = ProesBack.Domain.Enums.Semesters.Nineth,
+                CreationDate = DateTime.Now,
+                Description = "test",
+                TeacherId = 1
             });
 
             var course = _courseViewModelService.GetCourse(1);
