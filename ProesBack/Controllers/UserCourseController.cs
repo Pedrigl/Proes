@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProesBack.Domain.Models;
 using ProesBack.Interfaces;
 using ProesBack.ViewModels;
 
@@ -10,10 +11,14 @@ namespace ProesBack.Controllers
     public class UserCourseController : ControllerBase
     {
         private readonly IUserCourseViewModelService _userCourseViewModelService;
-
-        public UserCourseController(IUserCourseViewModelService userCourseViewModelService)
+        private readonly IUserViewModelService _userViewModelService;
+        private readonly ICourseViewModelService _courseViewModelService;
+        
+        public UserCourseController(IUserCourseViewModelService userCourseViewModelService, IUserViewModelService userViewModelService, ICourseViewModelService courseViewModelService)
         {
             _userCourseViewModelService = userCourseViewModelService;
+            _userViewModelService = userViewModelService;
+            _courseViewModelService = courseViewModelService;
         }
 
         [HttpGet("GetByUserId")]
@@ -21,25 +26,28 @@ namespace ProesBack.Controllers
         {
             try
             {
-                var userCourses = _userCourseViewModelService.GetUserCourse(userId);
+                var userCourses = _userCourseViewModelService.GetUserCoursesByUserId(userId);
                 return Ok(userCourses);
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody]UserCourseViewModel userCourse)
         {
+            if (userCourse == null)
+                return BadRequest("UserCourse is empty");
+
             try
             {
-                if (userCourse == null)
-                    return BadRequest("UserCourse is empty");
+                var userCourseValidity = _userCourseViewModelService.IsUserCourseValid(userCourse);
+                if (userCourseValidity.IsValid == false)
+                    return BadRequest(userCourseValidity.Message);
 
-                var newUserCourse = await GetByUserId(userCourse.Id);
-                
+                var newUserCourse = _userCourseViewModelService.GetUserCourse(userCourse.Id);
                 if (newUserCourse != null)
                     return BadRequest("UserCourse already exists");
 
@@ -48,7 +56,7 @@ namespace ProesBack.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -57,8 +65,9 @@ namespace ProesBack.Controllers
         {
             try
             {
-                if (userCourse == null)
-                    return BadRequest("UserCourse is empty");
+                var userCourseValidity = _userCourseViewModelService.IsUserCourseValid(userCourse);
+                if (userCourseValidity.IsValid == false)
+                    return BadRequest(userCourseValidity.Message);
 
                 var newUserCourse = await GetByUserId(userCourse.Id);
                 
@@ -70,7 +79,7 @@ namespace ProesBack.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -89,7 +98,7 @@ namespace ProesBack.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
     }
