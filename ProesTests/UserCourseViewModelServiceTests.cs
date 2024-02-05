@@ -45,7 +45,7 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void CreateCourseForUserTest()
+        public void ShouldCreateCourseForUser()
         {
             _userCourseViewModelService.CreateCourseForUser(new UserCourseViewModel
             {
@@ -62,7 +62,7 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void UpdateCourseForUserTest()
+        public void ShouldUpdateCourseForUser()
         {
             var userCourse = _userCourseViewModelService.GetUserCourse(1);
             userCourse.Grade = 9;
@@ -73,7 +73,7 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void GetCourseForUserByUserIdTest()
+        public void ShouldGetCourseForUserByUserId()
         {
             _userCourseViewModelService.CreateCourseForUser(new UserCourseViewModel
             {

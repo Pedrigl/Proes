@@ -40,7 +40,7 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void CreateAssignmentTest()
+        public void ShouldCreateAssignment()
         {
             _assignmentViewModelService.CreateAssignment(new AssignmentViewModel
             {
@@ -57,7 +57,7 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void UpdateAssignmentTest()
+        public void ShouldUpdateAssignment()
         {
             var assignment = _assignmentViewModelService.GetAssignmentById(1);
             assignment.Title = "testUpdate";
@@ -68,14 +68,14 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void GetAssignmentTest()
+        public void ShouldGetAssignmentByItsOwnId()
         {
             var assignment = _assignmentViewModelService.GetAssignmentById(1);
             assignment.Should().NotBeNull();
         }
 
         [TestMethod]
-        public void DeleteAssignmentTest()
+        public void ShouldDeleteAssignment()
         {
             _assignmentViewModelService.DeleteAssignment(1);
             var assignment = _assignmentViewModelService.GetAssignmentById(1);
@@ -83,7 +83,7 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void GetAssignmentsByCourseIdTest()
+        public void ShouldGetAssignmentsByCourseId()
         {
             _assignmentViewModelService.CreateAssignment(new AssignmentViewModel
             {

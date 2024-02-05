@@ -39,7 +39,7 @@ namespace ProesTests
         }
 
         [TestMethod()]
-        public void CreateStudentLoginTest()
+        public void ShouldCreateStudentLogin()
         {
             _loginViewModelService.InsertLogin(new Login { 
                 Id = 2,
@@ -55,14 +55,14 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void GetLoginTest()
+        public void ShouldGetLogin()
         {
             var login = _loginViewModelService.GetLogin("testInit", "testInit");
             login.Should().NotBeNull();
         }
 
         [TestMethod]
-        public void GeneraterJSONWebTokenTest()
+        public void ShouldGenerateJSONWebToken()
         {
             var login = _loginViewModelService.GetLogin("testInit", "testInit");
 
@@ -71,7 +71,7 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void UpdateLoginTest()
+        public void ShouldUpdateLogin()
         {
             var login = _loginViewModelService.GetLogin(1);
             login.UserType = UserType.admin;
@@ -87,7 +87,7 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void AuthenticateTest()
+        public void ShouldAuthenticateLogin()
         {
             var login = _loginViewModelService.GetLogin("testInit", "testInit");
             var token = _loginViewModelService.Authenticate(login);
@@ -95,7 +95,7 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void DeleteLoginTest()
+        public void ShouldDeleteLogin()
         {
             _loginViewModelService.DeleteLogin(1);
             var login = _loginViewModelService.GetLogin(1);

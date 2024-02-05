@@ -43,7 +43,7 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void CreateCourseTest()
+        public void ShouldCreateCourse()
         {
             _courseViewModelService.CreateCourse(new CourseViewModel
             {
@@ -60,14 +60,14 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void GetCourseTest()
+        public void ShouldGetCourse()
         {
             var course = _courseViewModelService.GetCourse(1);
             course.Should().NotBeNull();
         }
 
         [TestMethod]
-        public void DeleteCourseTest()
+        public void ShouldDeleteCourse()
         {
             _courseViewModelService.DeleteCourse(1);
             var course = _courseViewModelService.GetCourse(1);
@@ -75,7 +75,7 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void UpdateCourseTest()
+        public void ShouldUpdateCourse()
         {
             var course = _courseViewModelService.GetCourse(1);
             course.Title = "testUpdate";

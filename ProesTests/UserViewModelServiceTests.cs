@@ -44,7 +44,7 @@ namespace ProesTests
 
         [TestMethod]
 
-        public void CreateUserTest()
+        public void ShouldCreateUser()
         {
             _userViewModelService.InsertUser(new UserViewModel
             {
@@ -61,14 +61,14 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void GetUserTest()
+        public void ShouldGetUser()
         {
             var user = _userViewModelService.GetUserByLoginId(1);
             user.Should().NotBeNull();
         }
 
         [TestMethod]
-        public void UpdateUserTest()
+        public void ShouldUpdateUser()
         {
             var user = _userViewModelService.GetUserByLoginId(1);
             user.Name = "testUpdate";
@@ -79,7 +79,7 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void DeleteUserTest()
+        public void ShouldDeleteUser()
         {
             _userViewModelService.DeleteUser(1);
             var user = _userViewModelService.GetUserByLoginId(1);
@@ -87,7 +87,7 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void UploadPictureTest()
+        public void ShouldUploadPicture()
         {
             
             var pictureUpload = _userViewModelService.UploadPicture(1, CreateBlankPicture());
@@ -95,7 +95,7 @@ namespace ProesTests
         }
 
         [TestMethod]
-        public void GetLinkToPictureTest()
+        public void ShouldGetLinkToPicture()
         {
             var pictureLink = _userViewModelService.GetLinkToPicture(1);
             HttpClient client = new HttpClient();
