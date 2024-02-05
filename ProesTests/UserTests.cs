@@ -14,16 +14,14 @@ namespace ProesTests
     public class UserTests
     {
         private IUserViewModelService _userViewModelService;
-        private IUserRepository _userRepository;
         private IMapper _mapper;
-        private IConfiguration _configuration;
 
         [TestInitialize]
         public void Initialize()
         {
-            _configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+            IConfiguration configuration = GetConfiguration();
 
-            Settings.Setup(_configuration);
+            Settings.Setup(configuration);
 
             _mapper = new Mapper(new MapperConfiguration(cfg =>
             {

@@ -13,22 +13,20 @@ namespace ProesTests
     public class LoginTests
     {
         private  ILoginViewModelService _loginViewModelService;
-        private ILoginRepository _loginRepository;
         private IMapper _mapper;
-        private IConfiguration _configuration;
 
         [TestInitialize]
         public void Initialize()
         {
-            _configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
-            Settings.Setup(_configuration);
+            IConfiguration configuration = GetConfiguration();
+            Settings.Setup(configuration);
 
             _mapper = new Mapper(new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new AutoMapping());
             }));
 
-            _loginRepository = new LoginRepository(GetFakeDbContext());
+            LoginRepository _loginRepository = new LoginRepository(GetFakeDbContext());
             _loginViewModelService = new LoginViewModelService(_loginRepository, _mapper);
             _loginViewModelService.InsertLogin(new Login
             {

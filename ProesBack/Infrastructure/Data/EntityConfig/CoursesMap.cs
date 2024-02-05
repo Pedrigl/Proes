@@ -17,7 +17,7 @@ namespace ProesBack.Infrastructure.Data.EntityConfig
 
             builder.Property(x => x.Description).HasMaxLength(250).IsRequired();
 
-            builder.Property(x => x.TeacherID).IsRequired();
+            builder.Property(x => x.TeacherId).IsRequired();
 
             builder.Property(x => x.CreationDate).IsRequired();
 

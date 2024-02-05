@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using ProesBack.Infrastructure.Data.Common;
 using SkiaSharp;
@@ -61,6 +62,12 @@ namespace ProesTests
             var context = new ProesContext(options);
 
             return context;
+        }
+
+        public static IConfiguration GetConfiguration()
+        {
+            var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+            return configuration;
         }
 
     }

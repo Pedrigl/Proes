@@ -9,7 +9,7 @@ namespace ProesBack.ViewModels
         public long Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public long TeacherID { get; set; }
+        public long TeacherId { get; set; }
         public DateTime CreationDate { get; set; }
         public Semesters Semester { get; set; }
     }

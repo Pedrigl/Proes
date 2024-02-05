@@ -66,7 +66,7 @@ namespace ProesBack.Services
             return ShareService.UploadProfilePicture($"Id{userId}profilepicutre.png", pictureStream);
             
         }
-        public static PictureType[] GetSupportedPictureTypes()
+        public PictureType[] GetSupportedPictureTypes()
         {
             return Enum.GetNames(typeof(PictureType)).Cast<PictureType>().ToArray();
         }
