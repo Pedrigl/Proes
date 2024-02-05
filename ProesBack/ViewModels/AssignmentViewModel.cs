@@ -1,7 +1,10 @@
-﻿namespace ProesBack.ViewModels
+﻿using Swashbuckle.AspNetCore.Annotations;
+
+namespace ProesBack.ViewModels
 {
     public class AssignmentViewModel
     {
+        [SwaggerSchema(ReadOnly = true)]
         public long Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

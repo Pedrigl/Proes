@@ -49,7 +49,7 @@ namespace ProesBack.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Insert([FromBody]CourseViewModel course)
+        public async Task<IActionResult> Create([FromBody]CourseViewModel course)
         {
             try
             {

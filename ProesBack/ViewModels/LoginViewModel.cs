@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using ProesBack.Domain.Enums;
+using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProesBack.ViewModels
@@ -8,6 +9,7 @@ namespace ProesBack.ViewModels
     {
         [Key]
         [Required(ErrorMessage = "O campo ID é obrigatório")]
+        [SwaggerSchema(ReadOnly = true)]
         public long Id { get; set; }
 
         [Display(Name = "id de Usuario")]
