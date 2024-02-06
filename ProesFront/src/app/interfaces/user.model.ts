@@ -5,4 +5,5 @@ export interface UserModel {
   email: string;
   birthDate: Date;
   pictureUrl: string;
+  semester: number;
 }

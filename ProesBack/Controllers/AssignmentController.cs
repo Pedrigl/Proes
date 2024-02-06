@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProesBack.Interfaces;
 using ProesBack.ViewModels;
@@ -7,6 +8,7 @@ namespace ProesBack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "admin, principal")]
     public class AssignmentController : ControllerBase
     {
         private readonly IAssignmentViewModelService _assignmentViewModelService;

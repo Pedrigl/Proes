@@ -12,10 +12,13 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean | UrlTree {
-        
+    this.authService
     this.authService.checkAuthentication();
-    
-    if (this.authService.isAuthenticated) {
+
+    const expectedRole = next.data["expectedRole"];
+    const currentRole = this.authService.getRole();
+
+    if (this.authService.isAuthenticated && currentRole != expectedRole) {
         return true;
     } else {
         return this.router.parseUrl('/login');

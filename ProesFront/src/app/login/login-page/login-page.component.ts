@@ -35,7 +35,7 @@ export class LoginPageComponent implements OnInit{
   login: Login = {
     username: "",
     password: "",
-    userType: 0
+    userType: 1
   };
 
   public registerModeToggle() {

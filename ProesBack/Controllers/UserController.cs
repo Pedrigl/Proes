@@ -57,7 +57,7 @@ namespace ProesBack.Controllers
                 if (user == null)
                     return BadRequest("User is empty");
 
-                var newUser = await GetByUserId(user.Id);
+                var newUser = _userViewModelService.GetByUserId(user.Id);
                 
                 if (newUser != null)
                     return BadRequest("User already exists");
@@ -135,7 +135,7 @@ namespace ProesBack.Controllers
                 user.PictureUrl = _userViewModelService.GetLinkToPicture(userId);
                 _userViewModelService.UpdateUser(user);
 
-                return Ok();
+                return Ok(user.PictureUrl);
             }
             catch (Exception ex)
             {

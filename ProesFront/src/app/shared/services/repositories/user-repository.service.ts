@@ -35,4 +35,12 @@ export class UserRepositoryService {
   public deleteUser = (id: number) => {
     return this.httpClient.delete(this.envUrl.urlAddress + `/api/User/Delete?userId=${id}`);
   }
+
+  public sendPicture = (file: File, id: number) => {
+      return this.httpClient.post<string>(this.envUrl.urlAddress + `/api/User/SemdPicture?userId=${id}`, file);
+  }
+
+  public getPicture = (id: number) => {
+      return this.httpClient.get<string>(this.envUrl.urlAddress + `/api/User/GetPicture?userId=${id}`);
+  }
 }

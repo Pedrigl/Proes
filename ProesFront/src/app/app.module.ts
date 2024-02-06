@@ -15,17 +15,10 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { UserPageComponent } from './login/user-page/user-page.component';
 import { UserDataService } from './shared/services/user-data.service';
 import { LoginDataService } from './shared/services/login-data.service';
+import { AdminComponent } from './admin/admin.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
-}
-
-export interface user {
-  loginId: number;
-  userId: number;
-  name: string;
-  email: string;
-  birthDate: Date;
 }
 
 @NgModule({
@@ -35,7 +28,8 @@ export interface user {
     MenuComponent,
     NotFoundComponent,
     LoginPageComponent,
-    UserPageComponent
+    UserPageComponent,
+    AdminComponent
   ],
   imports: [
     AppRoutingModule,

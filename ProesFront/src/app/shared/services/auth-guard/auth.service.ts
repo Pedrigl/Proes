@@ -23,6 +23,14 @@ export class AuthService {
         this.authStatusSource.next(status);
     }
 
+  getRole() {
+    var login = localStorage.getItem('login');
+    if (login != null) {
+      var loginObject = JSON.parse(login);
+      return loginObject.userType;
+    }
+  }
+
     logOut() {
       localStorage.clear();
         this.isAuthenticated = false;

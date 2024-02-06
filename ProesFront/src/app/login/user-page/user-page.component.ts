@@ -28,8 +28,11 @@ export class UserPageComponent implements OnInit{
         birthDate: new Date(),
         email: "",
         loginId: 0,
-        pictureUrl: ""
+        pictureUrl: "",
+        semester: 1
   };
+
+    profilePicture!: File;
 
     registerUserError: boolean = false;
     registerUserErrorMessage!: string;
@@ -102,6 +105,17 @@ export class UserPageComponent implements OnInit{
     catch (err: any) {
       this.registerUserError = true;
       this.registerUserErrorMessage = err.error;
+      console.log(err);
+    }
+  }
+
+  async sendPicture() {
+    try {
+      const res = this.userRepository.sendPicture(this.profilePicture, this.user.id);
+      const result = await lastValueFrom(res);
+      this.user.pictureUrl = result;
+    }
+    catch (err: any) {
       console.log(err);
     }
   }
