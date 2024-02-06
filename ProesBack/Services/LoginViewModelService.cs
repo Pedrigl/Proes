@@ -61,7 +61,7 @@ namespace ProesBack.Services
         public string RefreshJSONWebToken(LoginViewModel login)
         {
             var mappedLogin = _mapper.Map<LoginViewModel,Login>(login);
-            var gerenciadorDeToken = new JwtSecurityToken();
+
             var chave = Encoding.ASCII.GetBytes(Settings.Key);
 
             var parametrosDeValidacao = new TokenValidationParameters
