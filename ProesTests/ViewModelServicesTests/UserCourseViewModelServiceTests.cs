@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProesBack.Domain.Interfaces;
+using ProesBack.Infrastructure.Data.Common;
 using ProesBack.Infrastructure.Data.Repositories;
 using ProesBack.Infrastructure.Web;
 using ProesBack.Interfaces;
@@ -22,6 +24,8 @@ namespace ProesTests.ViewModelServicesTests
         [TestInitialize]
         public void Initialize()
         {
+            IConfiguration configuration = GetConfiguration();
+            Settings.Setup(configuration);
             IUserCoursesRepository userCoursesRepository = new UserCourseRepository(GetFakeDbContext());
             ICourseRepository courseRepository = new CourseRepository(GetFakeDbContext());
             IUserRepository userRepository = new UserRepository(GetFakeDbContext());

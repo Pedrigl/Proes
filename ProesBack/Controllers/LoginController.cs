@@ -59,7 +59,7 @@ namespace ProesBack.Controllers
             try
             {
                 var refreshToken = _loginViewModelService.RefreshJSONWebToken(login);
-                return Ok(new { token = refreshToken });
+                return Ok(refreshToken);
             }
 
             catch (SecurityTokenException ex)
@@ -93,7 +93,7 @@ namespace ProesBack.Controllers
             }
             catch (Exception ex)
             {
-                StatusCode(500, ex);
+                return StatusCode(500, ex);
             }
             return BadRequest(login.Username+ " already exists");
             
@@ -106,15 +106,14 @@ namespace ProesBack.Controllers
             {
                 var login = _loginViewModelService.GetLogin(id);
                 if (login == null)
-                    return NotFound();
+                    return BadRequest("Login not found");
 
                 _loginViewModelService.DeleteLogin(id);
                 return Ok();
             }
             catch (Exception ex)
             {
-                StatusCode(500, ex.Message);
-                throw;
+                return StatusCode(500, ex.Message);
             }
         }
     }
