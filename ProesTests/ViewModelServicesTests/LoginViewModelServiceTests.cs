@@ -25,7 +25,7 @@ namespace ProesTests.ViewModelServicesTests
 
             LoginRepository _loginRepository = new LoginRepository(GetFakeDbContext());
             _loginViewModelService = new LoginViewModelService(_loginRepository, _mapper);
-            _loginViewModelService.InsertLogin(new Login
+            _loginViewModelService.InsertLogin(new LoginViewModel
             {
                 Id = 1,
                 Username = "testInit",
@@ -38,7 +38,7 @@ namespace ProesTests.ViewModelServicesTests
         [TestMethod()]
         public void ShouldCreateStudentLogin()
         {
-            _loginViewModelService.InsertLogin(new Login
+            _loginViewModelService.InsertLogin(new LoginViewModel
             {
                 Id = 2,
                 Username = "test",
@@ -63,8 +63,7 @@ namespace ProesTests.ViewModelServicesTests
         public void ShouldGenerateJSONWebToken()
         {
             var login = _loginViewModelService.GetLogin("testInit", "testInit");
-
-            var token = _loginViewModelService.GenerateJSONWebToken(login);
+            var token = _loginViewModelService.GenerateJSONWebToken(_mapper.Map<Login>(login));
             token.Should().NotBeNull();
         }
 
@@ -74,14 +73,13 @@ namespace ProesTests.ViewModelServicesTests
             var login = _loginViewModelService.GetLogin(1);
             login.UserType = UserType.admin;
             login.Username = "updated Username";
-            var mappedLogin = _mapper.Map<LoginViewModel, Login>(login);
-            mappedLogin.Password = "updated Password";
+            login.Password = "updated Password";
 
-            _loginViewModelService.UpdateLogin(mappedLogin);
+            _loginViewModelService.UpdateLogin(login);
 
             var updatedLogin = _loginViewModelService.GetLogin(1);
 
-            updatedLogin.Should().NotBe(mappedLogin);
+            updatedLogin.Should().NotBe(login);
         }
 
         [TestMethod]

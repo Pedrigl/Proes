@@ -18,6 +18,9 @@ namespace ProesBack.ViewModels
         [MaxLength(50, ErrorMessage = "O campo Usuario deve ter no máximo 50 caracteres")]
         public string Username { get; set; }
 
+        [Required(ErrorMessage = "O campo Senha é obrigatório")]
+        public string Password { get; set; }
+
         public string Token { get; set; }
 
         public DateTime TokenExpiration { get; set; }

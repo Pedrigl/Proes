@@ -9,10 +9,10 @@ namespace ProesBack.Interfaces
         string RefreshJSONWebToken(LoginViewModel login);
         string GetKey(int id);
         LoginViewModel GetLogin(long id);
-        Login GetLogin(string username, string password);
-        string Authenticate(Login login);
-        void InsertLogin(Login login);
-        void UpdateLogin(Login login);
+        LoginViewModel GetLogin(string username, string password);
+        string Authenticate(LoginViewModel login);
+        void InsertLogin(LoginViewModel login);
+        void UpdateLogin(LoginViewModel login);
         void DeleteLogin(long id);
     }
 }

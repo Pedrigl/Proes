@@ -23,13 +23,14 @@ namespace ProesBack.Services
             _mapper = mapper;
         }
 
-        public string Authenticate(Login login)
+        public string Authenticate(LoginViewModel login)
         {
+            var mappedLogin = _mapper.Map<Login>(login);
             var credentials = _loginRepository.Login(login.Username, login.Password);
             
             if (credentials != null)
             {
-                var token = GenerateJSONWebToken(login);
+                var token = GenerateJSONWebToken(mappedLogin);
                 return token;
             }
 
@@ -60,7 +61,7 @@ namespace ProesBack.Services
 
         public string RefreshJSONWebToken(LoginViewModel login)
         {
-            var mappedLogin = _mapper.Map<LoginViewModel,Login>(login);
+            var mappedLogin = _mapper.Map<Login>(login);
 
             var chave = Encoding.ASCII.GetBytes(Settings.Key);
 
@@ -104,22 +105,25 @@ namespace ProesBack.Services
         public LoginViewModel GetLogin(long id)
         {
             var login = _loginRepository.Get(id);
-            var loginViewModel = _mapper.Map<Login,LoginViewModel>(login);
+            var loginViewModel = _mapper.Map<LoginViewModel>(login);
             return loginViewModel;
         }
-        public Login GetLogin(string username, string password)
+        public LoginViewModel GetLogin(string username, string password)
         {
-            return _loginRepository.Login(username, password);
+            var login = _loginRepository.Login(username, password);
+            return _mapper.Map<LoginViewModel>(login);
         }
-        public void InsertLogin(Login login)
+        public void InsertLogin(LoginViewModel login)
         {
-            _loginRepository.Insert(login);
+            var mappedLogin = _mapper.Map<Login>(login);
+            _loginRepository.Insert(mappedLogin);
             _loginRepository.Save();
         }
 
-        public void UpdateLogin(Login login)
+        public void UpdateLogin(LoginViewModel login)
         {
-            _loginRepository.Update(login.Id,login);
+            var mappedLogin = _mapper.Map<Login>(login);
+            _loginRepository.Update(login.Id,mappedLogin);
             _loginRepository.Save();
         }
 

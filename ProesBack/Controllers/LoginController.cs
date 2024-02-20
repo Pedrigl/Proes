@@ -26,26 +26,19 @@ namespace ProesBack.Controllers
         {
             try
             {
-                var user = _loginViewModelService.GetLogin(username, password);
-                if (user == null)
+                var login = _loginViewModelService.GetLogin(username, password);
+                if (login == null)
                     return BadRequest("Username or password is incorrect");
 
-                var token = _loginViewModelService.Authenticate(user);
+                var token = _loginViewModelService.Authenticate(login);
 
-                _loginViewModelService.UpdateLogin(new Login{
-                    Id = user.Id,
-                    Username = user.Username,
-                    Password = user.Password,
-                    Token = token,
-                    TokenExpiration = DateTime.Now.AddMinutes(30),
-                    UserType = user.UserType
-                });
+                _loginViewModelService.UpdateLogin(login);
 
                 
                 if (token == null)
                     return BadRequest("Failed to authenticate");
 
-                return Ok(_loginViewModelService.GetLogin(user.Id));
+                return Ok(_loginViewModelService.GetLogin(login.Id));
             }
             catch (Exception ex)
             {
@@ -71,7 +64,7 @@ namespace ProesBack.Controllers
 
         [Authorize(Roles = "admin, principal")]
         [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromBody] Login login)
+        public async Task<IActionResult> Register([FromBody] LoginViewModel login)
         {
             try
             {
@@ -81,12 +74,7 @@ namespace ProesBack.Controllers
                 var user = _loginViewModelService.GetLogin(login.Username, login.Password);
                 if(user ==null)
                 {
-                    _loginViewModelService.InsertLogin(new Login
-                    {
-                        Username = login.Username,
-                        Password = login.Password,
-                        UserType = login.UserType
-                });
+                    _loginViewModelService.InsertLogin(login);
 
                     return StatusCode(StatusCodes.Status201Created);
                 }

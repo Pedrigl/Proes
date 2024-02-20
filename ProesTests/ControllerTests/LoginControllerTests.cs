@@ -38,7 +38,7 @@ namespace ProesTests.ControllerTests
             ILoginViewModelService loginViewModelService = new LoginViewModelService(loginRepository, mapper);
             _loginController = new LoginController(loginViewModelService);
 
-            _loginController.Register(new Login {
+            _loginController.Register(new LoginViewModel {
             Username = "testInit",
             Password = "testInit",
             UserType = UserType.admin
@@ -69,7 +69,7 @@ namespace ProesTests.ControllerTests
         [TestMethod]
         public void ShouldRegister()
         {
-            var register = _loginController.Register(new Login {
+            var register = _loginController.Register(new LoginViewModel {
                 Id = 2,
                 Username = "testRegister",
                 Password = "testRegister",
@@ -88,7 +88,7 @@ namespace ProesTests.ControllerTests
         [TestMethod]
         public void ShouldNotRegister()
         {
-            var register = _loginController.Register(new Login
+            var register = _loginController.Register(new LoginViewModel
             {
                 Id = 2,
                 Username = "testInit",
