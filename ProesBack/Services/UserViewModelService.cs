@@ -3,11 +3,7 @@ using ProesBack.Domain.Entities;
 using ProesBack.Domain.Interfaces;
 using ProesBack.Interfaces;
 using ProesBack.ViewModels;
-using Azure;
-using ProesBack.Services.Common;
-using ProesBack.Infrastructure.Data.Common;
 using ProesBack.Interfaces.Common;
-using Azure.Storage.Files.Shares.Models;
 using ProesBack.Domain.Enums;
 namespace ProesBack.Services
 {
@@ -16,11 +12,6 @@ namespace ProesBack.Services
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly ILoginRepository _loginRepository;
-
-        private IShareService ShareService 
-        {
-            get => new ShareService(Settings.ProesFilesUrl,"proesfiles");
-        }
 
         public UserViewModelService(IUserRepository userRepository, IMapper mapper)
         {
@@ -60,10 +51,10 @@ namespace ProesBack.Services
             _userRepository.Save();
         }
 
-        public ShareFileUploadInfo UploadPicture(long userId, IFormFile picture)
+        public void UploadPicture(long userId, IFormFile picture)
         {
             var pictureStream = picture.OpenReadStream();
-            return ShareService.UploadProfilePicture($"Id{userId}profilepicutre.png", pictureStream);
+            
             
         }
         public PictureType[] GetSupportedPictureTypes()
@@ -72,7 +63,7 @@ namespace ProesBack.Services
         }
         public string GetLinkToPicture(long userId)
         {
-            return ShareService.GetAuthorizedLinkToProfilePicture($"Id{userId}profilepicutre.png");
+            
         }           
 
 
